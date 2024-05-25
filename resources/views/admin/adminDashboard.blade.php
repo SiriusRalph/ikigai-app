@@ -11,6 +11,8 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                     <h1>This is Admin dashboard!</h1>
+                    <a href="{{route('admin.createUser')}}">Créer un compte expert</a>
+                    <a href="{{route('experts.createProfile')}}">Créer un profil expert</a>
                 </div>
             </div>
         </div>

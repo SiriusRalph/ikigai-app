@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -45,4 +47,10 @@ Route::middleware('expertAuth')->prefix('expert')->group(function(){
 /**Admin routes **/
 Route::middleware('adminAuth')->prefix('admin')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('adminDashboardShow');
+
+        // Routes for creating expert accounts and profiles
+        Route::get('/create-user', [AdminController::class, 'createUser'])->name('admin.createUser');
+        Route::post('/store-user', [AdminController::class, 'storeUser'])->name('admin.storeUser');
+        Route::get('/create-profile', [ExpertController::class, 'createProfile'])->name('experts.createProfile');
+        Route::post('/store-profile', [ExpertController::class, 'storeProfile'])->name('experts.storeProfile');
 });
