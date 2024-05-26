@@ -8,10 +8,16 @@ use Illuminate\Http\Request;
 
 class ExpertController extends Controller
 {
+    public function indexProfiles()
+    {
+        $profiles = ExpertProfile::all();
+        return view('admin.profiles.index', compact('profiles'));
+    }
+
     public function createProfile()
     {
         $users = User::where('type', 1)->get(); // Only experts
-        return view('admin.create-profile', compact('users'));
+        return view('admin.profiles.create-profile', compact('users'));
     }
 
     public function storeProfile(Request $request)
@@ -36,6 +42,42 @@ class ExpertController extends Controller
             'photo' => $path,
         ]);
 
-        return redirect()->route('adminDashboardShow')->with('success', 'Expert profile created successfully.');
+        return redirect()->route('experts.indexProfiles')->with('success', 'Expert profile created successfully.');
+    }
+
+    public function editProfile(ExpertProfile $profile)
+    {
+        return view('admin.profiles.edit', compact('profile'));
+    }
+
+    public function updateProfile(Request $request, ExpertProfile $profile)
+    {
+        $request->validate([
+            'nom' => 'required|string|max:255',
+            'tel' => 'required|string|max:255',
+            'categorie' => 'required|string|max:255',
+            'tarif' => 'required|numeric',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('photos', 'public');
+            $profile->photo = $photoPath;
+        }
+
+        $profile->update([
+            'nom' => $request->nom,
+            'tel' => $request->tel,
+            'categorie' => $request->categorie,
+            'tarif' => $request->tarif,
+        ]);
+
+        return redirect()->route('experts.indexProfiles')->with('success', 'Profile updated successfully.');
+    }
+
+    public function destroyProfile(ExpertProfile $profile)
+    {
+        $profile->delete();
+        return redirect()->route('experts.indexProfiles')->with('success', 'Profile deleted successfully.');
     }
 }

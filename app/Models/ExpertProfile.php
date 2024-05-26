@@ -22,4 +22,6 @@ class ExpertProfile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+
 }

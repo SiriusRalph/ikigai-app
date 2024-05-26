@@ -9,9 +9,15 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
+    public function indexUsers()
+    {
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
+    }
+
     public function createUser()
     {
-        return view('admin.create-user');
+        return view('admin.users.create-user');
     }
 
     public function storeUser(Request $request)
@@ -34,6 +40,12 @@ class AdminController extends Controller
             'type' => $request->type,
         ]);
 
-        return redirect()->route('adminDashboardShow')->with('success', 'User created successfully.');
+        return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
+    }
+
+    public function destroyUser(User $user)
+    {
+        $user->delete();
+        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
     }
 }

@@ -17,15 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 /*
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 */
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -33,24 +34,34 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
 
 
 /**User routes **/
 Route::middleware(['auth', 'verified'])->get('/dashboard', [DashboardController::class, 'userDashboard'])->name('dashboard');
 
-/**Expert routes **/
-Route::middleware('expertAuth')->prefix('expert')->group(function(){
+/**Expert routes **/ 
+Route::middleware(['auth', 'expertAuth'])->prefix('expert')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'expertDashboard'])->name('expertDashboardShow');
 });
 
 /**Admin routes **/
-Route::middleware('adminAuth')->prefix('admin')->group(function(){
+Route::middleware(['auth', 'adminAuth'])->prefix('admin')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('adminDashboardShow');
 
-        // Routes for creating expert accounts and profiles
-        Route::get('/create-user', [AdminController::class, 'createUser'])->name('admin.createUser');
-        Route::post('/store-user', [AdminController::class, 'storeUser'])->name('admin.storeUser');
-        Route::get('/create-profile', [ExpertController::class, 'createProfile'])->name('experts.createProfile');
-        Route::post('/store-profile', [ExpertController::class, 'storeProfile'])->name('experts.storeProfile');
+    /** Routes for managing users **/
+    Route::get('/users', [AdminController::class, 'indexUsers'])->name('admin.users.index');
+    Route::get('/users/create', [AdminController::class, 'createUser'])->name('admin.createUser');
+    Route::post('/users/store', [AdminController::class, 'storeUser'])->name('admin.storeUser');
+    Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.destroyUser');
+    
+    /**  Routes for managing expert Profiles **/
+    Route::get('/profiles', [ExpertController::class, 'indexProfiles'])->name('experts.indexProfiles');
+    Route::get('/profiles/create', [ExpertController::class, 'createProfile'])->name('experts.createProfile');
+    Route::post('/profiles/store', [ExpertController::class, 'storeProfile'])->name('experts.storeProfile');
+    Route::get('/profiles/{profile}/edit', [ExpertController::class, 'editProfile'])->name('experts.editProfile');
+    Route::put('/profiles/{profile}', [ExpertController::class, 'updateProfile'])->name('experts.updateProfile');
+    Route::delete('/profiles/{profile}', [ExpertController::class, 'destroyProfile'])->name('experts.destroyProfile');
 });
+
+
+require __DIR__.'/auth.php';
