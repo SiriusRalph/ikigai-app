@@ -11,6 +11,9 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                     <h1>This is EXPERT dashboard!</h1>
+
+                    <li><a href="{{ route('expert.consultations') }}">Mes consultations</a></li>
+
                 </div>
             </div>
         </div>

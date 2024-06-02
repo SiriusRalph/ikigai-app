@@ -15,8 +15,12 @@
         <input type="text" name="categorie" id="categorie" value="{{ $profile->categorie }}" required>
     </div>
     <div>
-        <label for="tarif">Rate:</label>
+        <label for="tarif">Tarif:</label>
         <input type="text" name="tarif" id="tarif" value="{{ $profile->tarif }}" required>
+    </div>
+    <div>
+        <label for="experience">Années d'expérience:</label>
+        <input type="number" name="experience" id="experience" value="{{ $profile->experience }}" required>
     </div>
     <div>
         <label for="photo">Photo:</label>

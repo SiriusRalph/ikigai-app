@@ -7,6 +7,7 @@
             <th>Phone</th>
             <th>Category</th>
             <th>Tarif</th>
+            <th>Expérience</th>
             <th>Image</th>            
             <th>Actions</th>
         </tr>
@@ -18,6 +19,7 @@
                 <td>{{ $profile->tel }}</td>
                 <td>{{ $profile->categorie }}</td>
                 <td>{{ $profile->tarif }}</td>
+                <td>{{ $profile->experience }} ans</td>
                 <td><img src="{{ asset('storage/' . $profile->photo) }}" alt="" style="width: 100px;"></td>
                 
                 <td>
@@ -25,7 +27,7 @@
                     <form action="{{ route('experts.destroyProfile', $profile->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit">Delete</button>
+                        <button type="submit" onclick="return confirm('Are you sure you want to delete this profile?')">Delete</button>
                     </form>
                 </td>
             </tr>

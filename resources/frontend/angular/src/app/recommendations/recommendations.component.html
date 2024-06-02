@@ -1,0 +1,8 @@
+<div *ngFor="let expert of recommendedExperts">
+    <img [src]="expert.photo" alt="Photo of {{ expert.nom }}" />
+    <p>{{ expert.nom }}</p>
+    <p>{{ expert.categorie }}</p>
+    <p>{{ expert.tarif }} €</p>
+    <button [routerLink]="['/reservation', expert.id]">Réserver</button>
+</div>
+<router-outlet></router-outlet>

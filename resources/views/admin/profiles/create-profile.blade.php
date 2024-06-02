@@ -26,6 +26,10 @@
         <input type="text" name="tarif" id="tarif" required>
     </div>
     <div>
+        <label for="experience">Années d'expérience:</label>
+        <input type="number" name="experience" id="experience" required>
+    </div>
+    <div>
         <label for="photo">Photo:</label>
         <input type="file" name="photo" id="photo" required>
     </div>

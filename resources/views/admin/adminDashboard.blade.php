@@ -12,7 +12,14 @@
                     {{ __("You're logged in!") }}
                     <h1>This is Admin dashboard!</h1>
                     <a href="{{route('admin.createUser')}}">Créer un compte expert</a>
+
                     <a href="{{route('experts.createProfile')}}">Créer un profil expert</a>
+                    <a href="{{route('experts.indexProfiles')}}">Liste des experts</a>
+
+                    <li><a href="{{ route('questions.index') }}">Gérer les Questions du Test</a></li>
+
+                    <li><a href="{{ route('admin.consultations') }}">Toutes les consultations</a></li>
+                    <li><a href="{{ route('admin.consultations.cancelled') }}">Les consultations annulées</a></li>
                 </div>
             </div>
         </div>

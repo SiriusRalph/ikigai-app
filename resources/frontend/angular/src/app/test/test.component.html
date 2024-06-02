@@ -1,0 +1,6 @@
+<div *ngFor="let question of questions; let i = index">
+    <p>{{ question.question }}</p>
+    <input [(ngModel)]="answers[i]" type="text" />
+  </div>
+<button (click)="submitTest()">Submit Test</button>
+<router-outlet></router-outlet>

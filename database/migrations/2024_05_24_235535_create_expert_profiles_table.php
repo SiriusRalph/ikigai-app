@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('tel');
             $table->string('categorie');
             $table->string('tarif');
+            $table->integer('experience')->nullable();
             $table->string('photo');
             $table->timestamps();
         });

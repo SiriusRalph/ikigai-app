@@ -11,6 +11,9 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                     <h1>This is User dashboard!</h1>
+
+                    <li><a href="{{ route('test.start') }}">Passer le Test</a></li>
+                    <li><a href="{{ route('consultations.index') }}">Mes consultations</a></li>
                 </div>
             </div>
         </div>

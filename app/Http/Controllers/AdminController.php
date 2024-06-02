@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Consultation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -47,5 +48,18 @@ class AdminController extends Controller
     {
         $user->delete();
         return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
+    }
+
+    //pour afficher TOUTES les consultations pour l'admin
+    public function consultations(){
+        $consultations = Consultation::with('user', 'expert')->get();
+        return view('admin.consultations', compact('consultations'));        
+    }
+
+    //pour afficher les consultations ANNULÉES
+    public function cancelledConsultations()
+    {
+        $consultations = Consultation::where('statut', 'annulée')->with('user', 'expert')->get();
+        return view('admin.cancelled_consul', compact('consultations'));
     }
 }

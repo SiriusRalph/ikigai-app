@@ -1,0 +1,21 @@
+<div>
+    <div>
+        <label>Date de consultation:</label>
+        <input [(ngModel)]="reservationData.date_consultation" type="date" />
+    </div>
+    <div>
+        <label>Heure de début:</label>
+        <input [(ngModel)]="reservationData.heure_debut" type="time" />
+    </div>
+    <div>
+        <label>Durée (minutes):</label>
+        <input [(ngModel)]="reservationData.duree" type="number" />
+    </div>
+    <div>
+        <label>Montant:</label>
+        <input [(ngModel)]="reservationData.montant" type="number" />
+    </div>
+    <button (click)="submitReservation()">Réserver</button>
+</div>
+<router-outlet></router-outlet>
+  
