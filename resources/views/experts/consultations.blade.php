@@ -9,6 +9,8 @@
                 <th>Heure</th>
                 <th>Durée</th>
                 <th>Statut</th>
+                <th>Motif</th>
+                <th>Lien</th>                                
                 <th>Actions</th>
             </tr>
         </thead>
@@ -22,12 +24,35 @@
                 <td>{{ $consultation->duree }} minutes</td>
                 <td>{{ $consultation->statut }}</td>
                 <td>
+                    @if ($consultation->statut === 'annulée')
+                        {{ $consultation->motif_annulation }}                    
+                    @else
+                        La consultation n'a pas été annulée
+                    @endif
+                </td>
+                <td>
+                    @if($consultation->meeting_link)
+                    <a href="{{ $consultation->meeting_link }}" target="_blank">Join Meeting</a>
+                @else
+                    Pas de lien généré
+                @endif
+                </td>
+
+                <td>
                     @if($consultation->statut === 'non réalisée')
                     <form action="{{ route('consultations.done', $consultation->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <button type="submit" class="btn btn-success">Marquer comme réalisée</button>
                     </form>
+                    @if (is_null($consultation->meeting_link))
+                        <form action="{{ route('consultations.generateLink', $consultation->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-primary">Générer le lien de réunion</button>
+                        </form>
+                    @endif
+                    @elseif($consultation->statut === 'annulée')
+                    <p>Consultation annulée</p>
                     @endif
                 </td>
             </tr>

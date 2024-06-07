@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Consultation;
 use App\Models\ExpertProfile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use App\Notifications\MeetingLinkGenerate;
 
 class ExpertController extends Controller
 {
@@ -110,4 +114,65 @@ class ExpertController extends Controller
 
         return redirect()->route('expert.consultations')->with('success', 'Consultation marked as done.');
     }
+
+    // pour générer le lien de la réunion
+    public function generateMeetingLink($id)
+    {
+        $consultation = Consultation::findOrFail($id);
+
+        // Formater la date et l'heure au format ISO 8601
+        $startDate = Carbon::parse($consultation->date_consultation . ' ' . $consultation->heure_debut)->toIso8601String();
+        
+        try {
+            $data = [
+                'endDate' => $startDate,
+                'fields' => ['hostRoomUrl']
+            ];
+            Log::info('Request data: ' . json_encode($data));
+
+
+            $response = Http::withToken(env('WHEREBY_API_KEY'))
+                            ->post('https://api.whereby.dev/v1/meetings', $data);
+
+            if ($response->successful()) {
+                $meetingData = $response->json();
+                Log::info('Meeting created successfully: ' . json_encode($meetingData));
+
+                $meeting_link = $meetingData['hostRoomUrl'];
+                
+                // Raccourcir l'URL avec Bitly
+                $shortenedLink = $this->shortenUrl($meeting_link);
+
+                $consultation->meeting_link = $shortenedLink;
+                $consultation->save();
+
+                $consultation->user->notify(new MeetingLinkGenerate($consultation));
+
+                return redirect()->route('expert.consultations')->with('success', 'Lien de la réunion généré et notification envoyée.');
+            } else {
+                Log::error('Failed to create meeting: ' . $response->body());
+                return redirect()->route('expert.consultations')->with('error', 'Erreur lors de la génération du lien de réunion.');
+            }
+        } catch (\Exception $e) {
+            Log::error('Exception while creating meeting: ' . $e->getMessage());
+            return redirect()->route('expert.consultations')->with('error', 'Une erreur est survenue lors de la génération du lien de réunion.');
+        }
+    }
+
+    private function shortenUrl($url)
+    {
+        $bitlyToken = env('BITLY_API_KEY');
+        $response = Http::withToken($bitlyToken)->post('https://api-ssl.bitly.com/v4/shorten', [
+            'long_url' => $url,
+            'domain' => 'bit.ly'
+        ]);
+
+        if ($response->successful()) {
+            return $response->json()['link'];
+        }
+
+        Log::error('Failed to shorten URL: ' . $response->body());
+        return $url;  
+    }
+
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Consultation extends Model
 {
     use HasFactory;
-    protected $fillable = ['date_consultation', 'heure_debut', 'duree', 'montant', 'motif_annulation', 'user_id', 'expert_id'];
+    protected $fillable = ['date_consultation', 'heure_debut', 'duree', 'montant', 'motif_annulation', 'meeting_link', 'user_id', 'expert_id'];
 
     public function user()
     {

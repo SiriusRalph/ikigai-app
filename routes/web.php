@@ -59,6 +59,10 @@ Route::middleware(['auth', 'expertAuth'])->prefix('expert')->group(function(){
 
     Route::get('/consultations', [ExpertController::class, 'expertConsultations'])->name('expert.consultations');
     Route::put('/consultations/{id}/done', [ExpertController::class, 'done'])->name('consultations.done');
+
+
+    Route::post('/consultations/{id}/generate-link', [ExpertController::class, 'generateMeetingLink'])->name('consultations.generateLink');
+
 });
 
 /**Admin routes **/
