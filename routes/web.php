@@ -26,9 +26,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [DashboardController::class, 'index'])->name('accueil');
+Route::get('/contact', [DashboardController::class, 'contact'])->name('contact');
 
 
 Route::middleware('auth')->group(function () {
@@ -43,7 +42,7 @@ Route::middleware('auth')->group(function () {
 // Route::middleware(['auth', 'verified'])->get('/test', [QuestionController::class, 'startTest'])->name('test.start');
 // Route::middleware(['auth', 'verified'])->post('/recommend', [RecommendationController::class, 'recommend'])->name('recommend');
 Route::middleware(['auth', 'verified'])->group(function(){
-    Route::get('/dashboard', [DashboardController::class, 'userDashboard'])->name('dashboard');
+    Route::get('/user-dashboard', [DashboardController::class, 'userDashboard'])->name('dashboard');
     Route::get('/test', [QuestionController::class, 'startTest'])->name('test.start');
     Route::post('/recommend', [RecommendationController::class, 'recommend'])->name('recommend');
 

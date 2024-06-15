@@ -1,46 +1,227 @@
-<h1>Questions</h1>
-<a href="{{ route('questions.create') }}">Add Question</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="/dashboard/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/dashboard/assets/img/favicon.png">
+  <title>
+    IKIGAI - Admin - Question Management 
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="/dashboard/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="/dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="/dashboard/assets/css/argon-dashboard.css" rel="stylesheet" />
+</head>
 
-
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Question</th>
-            <th>Type</th>
-            <th>Options</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($questions as $question)
-        <tr>
-            <td>{{ $question->id }}</td>
-            <td>{{ $question->question }}</td>
-            <td>{{ $question->type }}</td>
-            <td>{{ is_array($question->options) ? implode(', ', $question->options) : '' }}</td>
-            <td>
-                <a href="{{ route('questions.edit', $question->id) }}">Edit</a>
-                <form action="{{ route('questions.destroy', $question->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" onclick="return confirm('Are you sure you want to delete this question?')">Delete</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
-{{-- <ul>
-    @foreach($questions as $question)
-        <li>
-            {{ $question->question }} ({{ $question->type }})
-            <a href="{{ route('questions.edit', $question->id) }}">Edit</a>
-            <form action="{{ route('questions.destroy', $question->id) }}" method="POST" style="display:inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit">Delete</button>
-            </form>
+<body class="g-sidenav-show bg-gray-100">
+  <div class="min-height-300 bg-primary position-absolute w-100"></div>
+  <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href=" {{route('adminDashboardShow')}} ">
+        <img src="/dashboard/assets/img/icone_ikigai-removebg-preview.png" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold">IKIGAI</span>
+      </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link " href="{{route('adminDashboardShow')}}">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
         </li>
-    @endforeach
-</ul> --}}
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Coaches section</h6>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="{{route('experts.indexProfiles')}}">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-badge text-warning text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Experts</span>
+          </a>
+        </li>
+        <li class="nav-item mt-3">
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Test questions section</h6>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{{route('questions.index')}}">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-bulb-61 text-dark text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Questions</span>
+            </a>
+          </li>
+          <li class="nav-item mt-3">
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Consultation section</h6>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{{route('admin.consultations')}}">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-calendar-grid-58 text-primary text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Consultations</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{{route('admin.consultations.cancelled')}}">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Cancelled consultations</span>
+            </a>
+          </li>
+          <li class="nav-item mt-3">
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account section</h6>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="{{route('admin.users.index')}}">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">List of accounts</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <main class="main-content position-relative border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+        <div class="container-fluid py-1 px-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+              <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Dashboard</a></li>
+              <li class="breadcrumb-item text-sm text-white active" aria-current="page">Admin</li>
+            </ol>
+            <h6 class="font-weight-bolder text-white mb-0">Test questions</h6>
+          </nav>
+          <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+  
+            </div>
+            <ul class="navbar-nav  justify-content-end">
+  
+              <li class="nav-item d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-white font-weight-bold px-0" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-user me-sm-1"></i>
+                  <span class="d-sm-inline d-none">{{ Auth::user()->name }}</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                  <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
+                  <li>
+                      <form method="POST" action="{{ route('logout') }}">
+                          @csrf
+                          <button type="submit" class="dropdown-item">Logout</button>
+                        </form>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                  <div class="sidenav-toggler-inner">
+                    <i class="sidenav-toggler-line bg-white"></i>
+                    <i class="sidenav-toggler-line bg-white"></i>
+                    <i class="sidenav-toggler-line bg-white"></i>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      @if(session('success'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ session('success') }}
+      </div>
+      @endif
+
+      @if(session('error'))
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ session('error') }}
+          </div>
+      @endif
+      <div class="row">
+
+        <div class="col-md-12 mt-4">
+            <div class="card">
+                <div class="card-header pb-0 px-3">
+                    <h4 class="mb-0">Questions</h4>
+                    <div class=" text-end">
+                        <a class="btn bg-gradient-warning mb-0" href="{{ route('questions.create') }}"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Create Question</a>
+                    </div>
+                </div>
+                <div class="card-body pt-4 p-3">
+                    <ul class="list-group">
+
+                        @foreach($questions as $question)
+                        <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                            <div class="d-flex flex-column">
+                                <h6 class="mb-3 text-sm">{{ $question->question }}</h6>
+                                <span class="mb-2 text-xs">ID: <span class="text-dark font-weight-bold ms-sm-2">{{ $question->id }}</span></span>
+                                <span class="mb-2 text-xs">Type: <span class="text-dark ms-sm-2 font-weight-bold">{{ $question->type }}</span></span>
+                                @if ( $question->type === "select" || $question->type === "radio")
+                                    <span class="text-xs">Options: <span class="text-dark ms-sm-2 font-weight-bold">{{ is_array($question->options) ? implode(', ', $question->options) : '' }}</span></span>
+                                @else
+                                    <span> </span>
+                                @endif
+                            </div>
+                            <div class="ms-auto text-end">
+                                <a class="btn btn-link text-dark px-3 mb-0" href="{{ route('questions.edit', $question->id) }}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+                                <form action="{{ route('questions.destroy', $question->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-link text-danger text-gradient px-3 mb-0" onclick="return confirm('Are you sure you want to delete this question?')"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Delete</button>
+                                </form>
+                            </div>
+                        </li>
+                        @endforeach
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+      </div>
+
+
+@include('admin.footer')
+    </div>
+  </main>
+
+  <!--   Core JS Files   -->
+  <script src="/dashboard/assets/js/core/popper.min.js"></script>
+  <script src="/dashboard/assets/js/core/bootstrap.min.js"></script>
+  <script src="/dashboard/assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="/dashboard/assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="/dashboard/assets/js/plugins/chartjs.min.js"></script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="/dashboard/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+</body>
+
+</html>

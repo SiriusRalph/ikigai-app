@@ -56,64 +56,7 @@ class ConsultationController extends Controller
         return redirect()->route('consultations.index')->with('success', 'Consultation created successfully.');
     }
 
-    
 
-    // public function edit($id)
-    // {
-    //     $consultation = Consultation::findOrFail($id);
-    //         // Vérifiez si le statut de la consultation est annulée
-    // if ($consultation->statut !== 'annulée') {
-    //     return redirect()->route('admin.consultations')->with('error', 'Seules les consultations annulées peuvent être modifiées.');
-    // }
-    // $experts = ExpertProfile::all();
-
-    //     $expert = ExpertProfile::findOrFail($consultation->expert_id);
-    //     return view('consultations.edit', compact('consultation', 'expert','experts'));
-    // }
-
-    // public function update(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'expert_id' => 'required|exists:expert_profiles,id',
-    //         'date_consultation' => 'required|date',
-    //         'heure_debut' => 'required|date_format:H:i',
-    //         'duree' => 'required|integer|min:15',
-    //     ]);
-
-    //     $consultation = Consultation::findOrFail($id);
-
-    //         // Vérifiez si le statut de la consultation est annulée
-    // if ($consultation->statut !== 'annulée') {
-    //     return redirect()->route('admin.consultations')->with('error', 'Seules les consultations annulées peuvent être modifiées.');
-    // }
-
-    // // Vérifiez les conflits d'horaires pour le nouvel expert
-    // $conflictingConsultations = Consultation::where('expert_id', $request->expert_id)
-    //     ->where('date_consultation', $request->date_consultation)
-    //     ->where('heure_debut', $request->heure_debut)
-    //     ->where('id', '!=', $id)
-    //     ->count();
-
-    // if ($conflictingConsultations > 0) {
-    //     return redirect()->route('admin.consultations.edit', $id)
-    //         ->with('error', 'Il y a déjà une consultation prévue pour cet expert à cette heure.');
-    // }
-
-    //         // Récupérer l'expert pour recalculer le montant
-    // $expert = ExpertProfile::findOrFail($consultation->expert_id);
-    // $montant = ($expert->tarif * $request->duree) / 30;
-
-    //     $consultation->update([
-    //         'expert_id' => $request->expert_id,
-
-    //         'date_consultation' => $request->date_consultation,
-    //         'heure_debut' => $request->heure_debut,
-    //         'duree' => $request->duree,
-    //         'montant' => $montant,
-    //     ]);
-
-    //     return redirect()->route('admin.consultations')->with('success', 'Consultation updated successfully.');
-    // }
 
     public function destroy($id)
     {

@@ -58,7 +58,7 @@ class AuthenticatedSessionController extends Controller
         if(Auth::attempt(['email'=> $input['email'], 'password'=> $input['password']])){
             // check the user role
             if(Auth::user()->type == 0){
-                return redirect()->route('dashboard');
+                return redirect()->route('accueil');
             }
             elseif (Auth::user()->type == 1) {
                 return redirect()->route('expertDashboardShow');
