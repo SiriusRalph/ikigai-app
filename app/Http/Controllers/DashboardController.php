@@ -18,6 +18,25 @@ class DashboardController extends Controller
     
         if ($expertProfile) {
             $expertId = $expertProfile->id; 
+            $consultations = Consultation::where('expert_id', $expertId)->get();
+            $monthsCancelled = array_fill(0, 12, 0);
+            $monthsNotRealized = array_fill(0, 12, 0);
+            $monthsRealized = array_fill(0, 12, 0);
+
+            foreach ($consultations as $consultation) {
+                $month = $consultation->created_at->month - 1; // Mois en index 0-11
+                switch (strtolower($consultation->statut)) {
+                    case 'annulée':
+                        $monthsCancelled[$month]++;
+                        break;
+                    case 'non réalisée':
+                        $monthsNotRealized[$month]++;
+                        break;
+                    case 'réalisée':
+                        $monthsRealized[$month]++;
+                        break;
+                }
+            }
     
             $totalRevenue = Consultation::where('expert_id', $expertId)
                                         ->where('statut', 'réalisée')
@@ -29,18 +48,8 @@ class DashboardController extends Controller
                                     ->orderBy('created_at', 'desc')
                                     ->take(3)
                                     ->get();
-
-            $consultationsByMonth = Consultation::where('expert_id', $expertId)
-                                    ->whereYear('created_at', now()->year)
-                                    ->selectRaw('MONTH(created_at) as month, COUNT(*) as count')
-                                    ->groupBy('month')
-                                    ->get();            
-    
-            $months = array_fill(0, 12, 0);
-            foreach ($consultationsByMonth as $consultation) {
-                $months[$consultation->month - 1] = $consultation->count;
-            }
-            return view('experts.expertDashboard', compact('totalRevenue', 'totalBookings', 'recentConsultations','months'));
+                                    
+            return view('experts.expertDashboard', compact('totalRevenue', 'totalBookings', 'recentConsultations','monthsCancelled','monthsNotRealized', 'monthsRealized'));
         } else {
             return redirect()->route('accueil')->with('error', 'No expert profile found');
         }
@@ -53,30 +62,44 @@ class DashboardController extends Controller
         $totalBookings = Consultation::count();
 
         // Récupérer les consultations par mois et par expert
-        $consultations = Consultation::selectRaw('MONTH(created_at) as month, expert_id, COUNT(*) as count')
-            ->groupBy('month', 'expert_id')
+        $consultations = Consultation::selectRaw('MONTH(created_at) as month, expert_id, statut, COUNT(*) as count')
+            ->groupBy('month', 'expert_id', 'statut')
             ->get()
             ->groupBy('expert_id');
 
         // Préparer les données pour Chart.js
         $experts = [];
         $chartData = [];
-        foreach ($consultations as $expertId => $data) {
-            $expert = User::find($expertId); // Récupérer les informations de l'expert
-            $expertName = $expert ? $expert->name : "Expert $expertId";
-            $experts[] = $expertName;
+        $colors = ['#f44055', '#fb6d40', '#2dcd94'];
 
-            // Initialiser les données mensuelles à zéro pour tous les mois
-            $monthlyData = array_fill(0, 12, 0);
-            foreach ($data as $entry) {
-                $monthlyData[$entry->month - 1] = $entry->count;
+        foreach ($consultations as $expertId => $data) {
+            $expert = ExpertProfile::where('id', $expertId)->first();
+
+            if ($expert) {
+                $expertName = $expert->nom;
+                $experts[] = $expertName;
+    
+                // Initialiser les données mensuelles à zéro pour tous les mois
+                $monthlyData = [
+                    'annulée' => array_fill(0, 12, 0),
+                    'non réalisée' => array_fill(0, 12, 0),
+                    'réalisée' => array_fill(0, 12, 0),
+                ];
+    
+                foreach ($data as $entry) {
+                    $statut = strtolower($entry->statut);
+                    $monthlyData[$statut][$entry->month - 1] = $entry->count;
+                }
+    
+                foreach (['annulée', 'non réalisée', 'réalisée'] as $index => $statut) {
+                    $chartData[] = [
+                        'label' => "$expertName - $statut",
+                        'backgroundColor' => $colors[$index % count($colors)],
+                        'data' => $monthlyData[$statut],
+                    ];
+                }
             }
 
-            $chartData[] = [
-                'label' => $expertName,
-                'data' => $monthlyData,
-
-            ];
         }
 
         return view('admin.adminDashboard', compact('totalRevenue', 'totalClients', 'totalExperts', 'totalBookings', 'chartData', 'experts'));

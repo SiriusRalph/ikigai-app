@@ -43,7 +43,7 @@ class ConsultationController extends Controller
         $expert = ExpertProfile::findOrFail($request->expert_id);
         $montant = ($expert->tarif * $request->duree) / 30;
 
-        Consultation::create([
+        $consultation = Consultation::create([
             'user_id' => $request->user_id,
             'expert_id' => $request->expert_id,
             'date_consultation' => $dateConsultation,
@@ -53,7 +53,9 @@ class ConsultationController extends Controller
             'statut' => 'non réalisée',
         ]);
 
-        return redirect()->route('consultations.index')->with('success', 'Consultation created successfully.');
+        // return redirect()->route('consultations.index')->with('success', 'Consultation created successfully.');
+        return redirect()->route('payment.page', ['consultation_id' => $consultation->id]);
+
     }
 
 
@@ -82,4 +84,22 @@ class ConsultationController extends Controller
         // $consultation->update(['statut' => 'annulée']);
         return redirect()->route('consultations.index')->with('success', 'Consultation cancelled successfully.');
     }
+
+    public function rate(Request $request, $id)
+    {
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        $consultation = Consultation::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->where('statut', 'réalisée')
+            ->firstOrFail();
+
+        $consultation->rating = $request->input('rating');
+        $consultation->save();
+
+        return redirect()->back()->with('success', 'Thanks for your feedback !');
+    }
+
 }

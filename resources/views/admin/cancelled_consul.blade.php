@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="/dashboard/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="/dashboard/assets/img/favicon.png">
   <title>
-    IKIGAI - Admin - Cancelled Consultations
+    IKIZEN - Admin - Cancelled Consultations
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -28,7 +28,7 @@
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" {{route('adminDashboardShow')}} ">
         <img src="/dashboard/assets/img/icone_ikigai-removebg-preview.png" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">IKIGAI</span>
+        <span class="ms-1 font-weight-bold">IKIZEN</span>
       </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -174,6 +174,8 @@
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Duration</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Reason for cancellation</th>
+
                     </tr>
                   </thead>
                   <tbody>
@@ -218,15 +220,11 @@
                       </td>
 
                       <td class="align-middle text-center text-sm">
-                        @if ($consultation->statut == 'non réalisée')
-                        <span class="badge badge-sm bg-gradient-warning">{{ $consultation->statut }}</span>
-                        @elseif ($consultation->statut == 'annulée')
-                            <span class="badge badge-sm bg-gradient-danger">{{ $consultation->statut }}</span>
-                        @elseif ($consultation->statut == 'réalisée')
-                            <span class="badge badge-sm bg-gradient-success">{{ $consultation->statut }}</span>
-                        @else
-                            <span class="badge badge-sm">{{ $consultation->statut }}</span> <!-- Par défaut, sans gradient -->
-                        @endif
+                        <span class="badge badge-sm bg-gradient-danger">{{ $consultation->statut }}</span>
+                      </td>
+
+                      <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">{{ $consultation->motif_annulation }}</span>
                       </td>
 
                     </tr>

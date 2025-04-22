@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" type="image/png" href="/dashboard/assets/img/favicon.png">
   <title>
-    IKIGAI - Admin Dashboard 
+    IKIZEN - Admin Dashboard 
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -27,7 +27,7 @@
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" {{route('adminDashboardShow')}} ">
         <img src="/dashboard/assets/img/icone_ikigai-removebg-preview.png" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">IKIGAI</span>
+        <span class="ms-1 font-weight-bold">IKIZEN</span>
       </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -251,7 +251,7 @@
             </div>
             <div class="card-body p-3">
               <div class="chart">
-                <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+                <canvas id="chart-bar" class="chart-canvas" height="300"></canvas>
               </div>
             </div>
           </div>
@@ -270,83 +270,82 @@
   <script src="/dashboard/assets/js/plugins/chartjs.min.js"></script>
   
   <script>
-    var ctx1 = document.getElementById("chart-line").getContext("2d");
+    document.addEventListener("DOMContentLoaded", function() {
+        var ctx1 = document.getElementById("chart-bar").getContext("2d");
 
-    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+        // Récupérer les données du contrôleur Laravel
+        var chartData = @json($chartData);
+        var experts = @json($experts);
 
-    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-
-
-
-    // Récupérer les données du contrôleur Laravel
-    var chartData = @json($chartData);
-    var experts = @json($experts);
-
-    new Chart(ctx1, {
-      type: "line",
-      data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: chartData
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5]
+        new Chart(ctx1, {
+            type: "bar", // Changer le type de graphique à "bar" pour un diagramme en bâtons
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: chartData
             },
-            ticks: {
-              display: true,
-              padding: 10,
-              color: '#fbfbfb',
-              font: {
-                size: 11,
-                family: "Open Sans",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-              borderDash: [5, 5]
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true, // Afficher la légende pour montrer les différents experts et statuts
+                        position: 'top',
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                },
+                scales: {
+                    x: {
+                        stacked: true, // Empiler les barres pour chaque mois et chaque expert
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#ccc',
+                            padding: 20,
+                            font: {
+                                size: 11,
+                                family: "Open Sans",
+                                style: 'normal',
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                    y: {
+                        stacked: true, // Empiler les barres pour chaque statut (annulée, non réalisée, réalisée)
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            padding: 10,
+                            color: '#fbfbfb',
+                            font: {
+                                size: 11,
+                                family: "Open Sans",
+                                style: 'normal',
+                                lineHeight: 2
+                            },
+                        }
+                    }
+                },
             },
-            ticks: {
-              display: true,
-              color: '#ccc',
-              padding: 20,
-              font: {
-                size: 11,
-                family: "Open Sans",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-        },
-      },
+        });
     });
-  </script>
+</script>
+
+
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {

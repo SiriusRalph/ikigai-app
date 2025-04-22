@@ -7,13 +7,13 @@
               document.write(new Date().getFullYear())
             </script>,
              by
-            <a href="{{route('accueil')}}" class="font-weight-bold" target="_blank">IKIGAI.</a>
+            <a href="{{route('accueil')}}" class="font-weight-bold" target="_blank">IKIZEN.</a>
           </div>
         </div>
         <div class="col-lg-6">
           <ul class="nav nav-footer justify-content-center justify-content-lg-end">
             <li class="nav-item">
-              <a href="{{route('accueil')}}" class="nav-link text-muted" target="_blank">IKIGAI</a>
+              <a href="{{route('accueil')}}" class="nav-link text-muted" target="_blank">IKIZEN</a>
             </li>
             <li class="nav-item">
               <a href="{{route('contact')}}" class="nav-link text-muted" target="_blank">Contact us</a>

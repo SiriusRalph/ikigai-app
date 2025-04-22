@@ -10,7 +10,8 @@ class ExpertProfile extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id', 'nom', 'tel', 'categorie', 'tarif', 'experience', 'photo'
+        'user_id', 'nom', 'tel', 'categorie', 'tarif', 'experience', 'photo',
+        'genre', 'domaine'
     ];
 
     /**
@@ -22,5 +23,7 @@ class ExpertProfile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    
 
 }

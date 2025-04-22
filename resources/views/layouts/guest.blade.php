@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="icon" type="image/png" sizes="32x32" href="/dashboard/assets/img/favicon.png">
 
-        <title>{{ config('app.name', 'IKIGAI') }}</title>
+        <title>{{ config('app.name', 'IKIZEN') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -23,9 +23,15 @@
                 </a>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 {{ $slot }}
             </div>
         </div>
+        <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+        <script>
+            Weglot.initialize({
+                api_key: 'wg_f046143884ddc4609603fcad0408ce432'
+            });
+        </script>
     </body>
 </html>

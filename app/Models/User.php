@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Notifications\ExpertWelcomeNotif;
+use App\Notifications\WelcomeUserNotif;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class User extends Authenticatable 
-// implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -59,5 +61,14 @@ class User extends Authenticatable
     public function consultations()
     {
         return $this->hasMany(Consultation::class);
+    }
+
+    public function sendWelcomeNotification()
+    {
+        if ($this->type == '1') {
+            $this->notify(new ExpertWelcomeNotif());
+        } else {
+            $this->notify(new WelcomeUserNotif());
+        }
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class RecommendationController extends Controller
 {
+
     public function recommend(Request $request)
     {
         $request->validate([
@@ -15,35 +16,66 @@ class RecommendationController extends Controller
         ]);
 
         $answers = $request->input('answers');
-        $category = null;
-        $experience = null;
+        $experts = ExpertProfile::all();
+        $results = [];
 
-        $questions = Question::all();
+        foreach ($experts as $expert) {
+            $score = 0;
 
-        foreach ($questions as $question) {
-            if (isset($answers[$question->id])) {
-                $answer = $answers[$question->id];
-                if ($question->question == 'Voulez-vous consulter pour le travail ou bien pour l\'orientation scolaire ?') {
-                    if ($answer == 'travail') {
-                        $category = 'travail';
-                    } elseif ($answer == 'orientation') {
-                        $category = 'orientation';
-                    }
-                } elseif ($question->question == 'Avez-vous déjà eu une consultation ?' && $answer == 'yes') {
-                    $experience = 5;
-                }
+            $answerCategory = $this->getAnswerByQuestionText($answers, "Do you want a consultation for work or school guidance ?");
+            if ($answerCategory && strtolower($expert->categorie) === strtolower($answerCategory)) {
+                $score += 20;
             }
+
+            $experiencePref = $this->getAnswerByQuestionText($answers, "Do you prefer a senior or junior consultant ?");
+            if ($experiencePref === 'Senior' && $expert->experience >= 5) {
+                $score += 15;
+            } elseif ($experiencePref === 'Junior' && $expert->experience < 5) {
+                $score += 15;
+            } elseif ($experiencePref === "It doesn't matter") {
+                $score += 5;
+            }
+
+            $budget = $this->getAnswerByQuestionText($answers, "What is your maximum budget for one hour session ?");
+            if ($budget && $expert->tarif <= intval($budget)) {
+                $score += 15;
+            }
+
+            $genderPref = $this->getAnswerByQuestionText($answers, "Do you prefer a male or female expert ?");
+            if ($genderPref && $genderPref !== "It doesn't matter" && strtolower($expert->genre) === strtolower($genderPref)) {
+                $score += 10;
+            } elseif ($genderPref === "It doesn't matter") {
+                $score += 5;
+            }
+
+            $userDomain = $this->getAnswerByQuestionText($answers, "In which field(s) do you plan to work or retrain ? Ex: Tech, Marketing, Education...");
+            if ($userDomain && stripos($expert->domaine, $userDomain) !== false) {
+                $score += 15;
+            }
+
+            $clarity = $this->getAnswerByQuestionText($answers, "How clear are you about your professional future ? 1 (I'm completely lost) to 5 (I know exactly what I want)");
+            if ($clarity >= 3 && $expert->experience >= 5) {
+                $score += 10;
+            } elseif ($clarity <= 2 && $expert->experience < 5) {
+                $score += 10;
+            }
+
+            $results[] = ['expert' => $expert, 'score' => $score];
         }
 
-        $query = ExpertProfile::query();
-        if ($category) {
-            $query->where('categorie', $category);
-        }
-        if ($experience) {
-            $query->where('experience', '>=', $experience);
-        }
+        $sortedResults = collect($results)->sortByDesc('score');
+        
+        $filtered = $sortedResults->filter(function($r) {
+            return $r['score'] >= 30;
+        });
 
-        $experts = $query->get();
-        return view('recommendations.index', compact('experts'));
+        return view('recommendations.index', ['results' => $filtered]);
     }
+
+    private function getAnswerByQuestionText($answers, $questionText)
+    {
+        $question = Question::where('question', $questionText)->first();
+        return $question && isset($answers[$question->id]) ? $answers[$question->id] : null;
+    }
+
 }

@@ -3,7 +3,8 @@
 
   <head>
 @include('user.css');
-<title>IKIGAI - Contact</title>
+<title>IKIZEN - Contact</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   </head>
 
   <body>
@@ -11,80 +12,110 @@
     <main class="main" id="top">
 @include('user.menu');
 
-      <section style="padding-top: 7rem;">
+      <section class="contact-section" style="padding: 7rem 0; background-color: #f8f9fa;">
         <div class="container">
-          <div class="row align-items-center">
-                <div class="col-lg-6">
-                  <div class="section-heading">
-                    <h5 class="text-secondary">| Contact</h5>
-                    <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">Be in touch with our team!</h3>
-                    <p>If you have any complaints or questions, do not hesitate to contact 
-                        our customer service via telephone, email or this contact form.</p>
-                  </div>
-
-  
-                      <div class="row">
-                        <div class="task" draggable="true">  
-
-                            <div class="col-lg-12">
-                            <div>
-                                <img src="home/assets/img/phone-icon.png" alt="tel">
-                                <p>06 13 45 76 00<br><span>Phone number</span></p>
-                            </div>
-                            </div>
-
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <div class="contact-wrapper">
+                <div class="row g-0">
+                  <!-- Contact Info Side -->
+                  <div class="col-lg-5">
+                    <div class="contact-info-panel text-white p-5" style="background: linear-gradient(135deg, #1853b2bb 0%, #1853b2 100%); height: 100%; border-radius: 12px 0 0 12px;">
+                      <div class="info-header mb-5 reveal-left">
+                        <span class="badge rounded-pill bg-white text-primary px-3 py-2 mb-3">Contact Us</span>
+                        <h2 class="fs-3 fw-bold mb-4">Get in touch with our team</h2>
+                        <p class="mb-5">Have questions or need assistance? We're here to help. Reach out to us through any channel below.</p>
+                      </div>
+                      
+                      <div class="contact-details">
+                        <div class="contact-item d-flex align-items-center mb-4 reveal-left" style="animation-delay: 0.2s;">
+                          <div class="icon-box me-3">
+                            <i class="fas fa-phone-alt"></i>
+                          </div>
+                          <div class="info">
+                            <h6 class="mb-0">Phone Number</h6>
+                            <p class="mb-0">06 13 45 76 00</p>
+                          </div>
+                        </div>
+                        
+                        <div class="contact-item d-flex align-items-center mb-4 reveal-left" style="animation-delay: 0.3s;">
+                          <div class="icon-box me-3">
+                            <i class="fas fa-envelope"></i>
+                          </div>
+                          <div class="info">
+                            <h6 class="mb-0">Email Address</h6>
+                            <p><a href="mailto:ikizzeen@gmail.com">ikizzeen@gmail.com</a></p>
+                          </div>
                         </div>
 
-                        <div class="task" draggable="true">  
-
-                            <div class="col-lg-12">
-                            <div >
-                                <img src="home/assets/img/email-icon.png" alt="mail" width="70px" >
-                                <p>info@ikigai.com<br><span>Email</span></p>
-                            </div>
-                            </div>
+                      </div>
+                      
+                      <div class="social-links mt-5 reveal-left" style="animation-delay: 0.5s;">
+                        <h6 class="mb-3">Follow Us</h6>
+                        <div class="d-flex gap-3">
+                          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                          <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
                         </div>
-
-
-                      </div>
-            
-                </div>
-                <div class="col-lg-6">
-                <form action="https://api.web3forms.com/submit" method="POST">
-                    <div class="row">
-                      <input type="hidden" name="access_key" value="af53162f-7913-47fb-955e-699701978fa6">
-                      <div class="col-lg-12">
-                        <fieldset>
-                          <label for="name">Full name</label>
-                          <input type="text" class="form-control" name="name" id="name" placeholder="Your name..." autocomplete="on" required="">
-                        </fieldset>
-                      </div>
-                      <div class="col-lg-12">
-                        <fieldset>
-                          <label for="email">Email</label>
-                          <input type="email" class="form-control" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your E-mail..." required="">
-                        </fieldset>
-                      </div>
-                      <div class="col-lg-12">
-                        <fieldset>
-                          <label for="message">Message</label>
-                          <textarea name="message" class="form-control" id="message" placeholder="Your Message"></textarea>
-                        </fieldset>
-                      </div>
-                      <div class="col-lg-12">
-                        <fieldset>
-                          <button type="submit" id="form-submit" class="btn btn-primary mt-3">Submit</button>
-                        </fieldset>
                       </div>
                     </div>
-                  </form>
+                  </div>
+                  
+                  <!-- Form Side -->
+                  <div class="col-lg-7">
+                    <div class="contact-form-panel bg-white p-5" style="border-radius: 0 12px 12px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                      <div class="form-header mb-4 reveal-right">
+                        <h3 class="fs-4 fw-bold">Send us a message</h3>
+                        <p class="text-muted">Fill out the form below and we'll get back to you shortly</p>
+                      </div>
+                      
+                      <form action="https://api.web3forms.com/submit" method="POST" id="contactForm" class="needs-validation" novalidate>
+                        <input type="hidden" name="access_key" value="c667aef2-b7a4-4067-bf4d-c23cf3cb3cf0">
+                        
+                        <div class="mb-4 reveal-right" style="animation-delay: 0.2s;">
+                          <label for="name" class="form-label">Full Name</label>
+                          <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <input type="text" class="form-control form-control-lg border-start-0" name="name" id="name" placeholder="Enter your name" required>
+                            <div class="invalid-feedback">Please enter your name</div>
+                          </div>
+                        </div>
+                        
+                        <div class="mb-4 reveal-right" style="animation-delay: 0.3s;">
+                          <label for="email" class="form-label">Email Address</label>
+                          <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            <input type="email" class="form-control form-control-lg border-start-0" name="email" id="email" placeholder="Enter your email" pattern="[^ @]*@[^ @]*" required>
+                            <div class="invalid-feedback">Please enter a valid email address</div>
+                          </div>
+                        </div>
+                        
+                        <div class="mb-4 reveal-right" style="animation-delay: 0.4s;">
+                          <label for="message" class="form-label">Message</label>
+                          <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-comment-dots"></i></span>
+                            <textarea class="form-control form-control-lg border-start-0" name="message" id="message" rows="4" placeholder="Write your message here..." required></textarea>
+                            <div class="invalid-feedback">Please enter your message</div>
+                          </div>
+                        </div>
+                        
+                        <div class="mt-4 reveal-right" style="animation-delay: 0.5s;">
+                          <button type="submit" id="form-submit" class="btn btn-primary btn-lg w-100 submit-button">
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-icon"><i class="fas fa-paper-plane ms-2"></i></span>
+                          </button>
+                        </div>
+                      </form>
+                      
+                      <div id="message-container" class="mt-4"></div>
+                    </div>
+                  </div>
                 </div>
-                <div id="message-container"></div>
-        
-
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
 
 
       <!-- <section> begin ============================-->
@@ -112,9 +143,9 @@
                       <div class="card shadow" style="border-radius:10px;">
                         <div class="position-absolute start-0 top-0 translate-middle"> <img class="rounded-circle fit-cover" src="home/assets/img/testimonial/author.png" height="65" width="65" alt="" /></div>
                         <div class="card-body p-4">
-                          <p class="fw-medium mb-4">&quot;Avant d'avoir mon diplôme, j'étais perdu concernant ma carrière, mais grâce à Ikigai et aux conseils des experts, j'ai pu trouver ma voie en choisissant d'étudier l'informatique et j'adore.&quot;</p>
+                          <p class="fw-medium mb-4">&quot;Before graduating, I was lost about my career, but thanks to Ikizen and the advice of the experts, I was able to find my path by choosing to study computer science and I love it.&quot;</p>
                           <h5 class="text-secondary">Adam Mounir</h5>
-                          <p class="fw-medium fs--1 mb-0">Etudiant en bac</p>
+                          <p class="fw-medium fs--1 mb-0">Baccalaureate student</p>
                         </div>
                       </div>
                       <div class="card shadow-sm position-absolute top-0 z-index--1 mb-3 w-100 h-100" style="border-radius:10px;transform:translate(25px, 25px)"> </div>
@@ -123,9 +154,9 @@
                       <div class="card shadow" style="border-radius:10px;">
                         <div class="position-absolute start-0 top-0 translate-middle"> <img class="rounded-circle fit-cover" src="home/assets/img/testimonial/author3.png" height="65" width="65" alt="" /></div>
                         <div class="card-body p-4">
-                          <p class="fw-medium mb-4">&quot;Avant je travaillais salariée dans une entreprise privée comme community manager, mais les horaires de bureaux n'étaient pas faites pour moi. Alors j'ai décidé de me convertir.&quot;</p>
+                          <p class="fw-medium mb-4">&quot;Before, I worked as an employee in a private company as a community manager, but office hours were not for me. So I decided to convert.&quot;</p>
                           <h5 class="text-secondary">Sara Ktoun</h5>
-                          <p class="fw-medium fs--1 mb-0">Photographe</p>
+                          <p class="fw-medium fs--1 mb-0">Photographer</p>
                         </div>
                       </div>
                       <div class="card shadow-sm position-absolute top-0 z-index--1 mb-3 w-100 h-100" style="border-radius:10px;transform:translate(25px, 25px)"> </div>
@@ -134,9 +165,9 @@
                       <div class="card shadow" style="border-radius:10px;">
                         <div class="position-absolute start-0 top-0 translate-middle"> <img class="rounded-circle fit-cover" src="home/assets/img/testimonial/author2.png" height="65" width="65" alt="" /></div>
                         <div class="card-body p-4">
-                          <p class="fw-medium mb-4">&quot;Etant CEO, j'ai toute une équipe à gérer, alors pour être dans la même longueur d'onde que mon équipe, j'ai opté pour une consultation en développement personnel et cela m'a aidé.&quot;</p>
+                          <p class="fw-medium mb-4">&quot;As CEO, I have a whole team to manage, so to be on the same wavelength as my team, I opted for a personal development consultation and it helped me.&quot;</p>
                           <h5 class="text-secondary">Saad Rahmouni</h5>
-                          <p class="fw-medium fs--1 mb-0">CEO de X Company</p>
+                          <p class="fw-medium fs--1 mb-0">CEO of X Company</p>
                         </div>
                       </div>
                       <div class="card shadow-sm position-absolute top-0 z-index--1 mb-3 w-100 h-100" style="border-radius:10px;transform:translate(25px, 25px)"> </div>
@@ -166,16 +197,26 @@
       <!-- <section> begin ============================-->
       <section id="footer" class="pb-0 pb-lg-4">
 
+        <div class="footer-bg-wrapper">
+          <div class="footer-bg-animation">
+            <div class="footer-bg-shape shape1"></div>
+            <div class="footer-bg-shape shape2"></div>
+            <div class="footer-bg-shape shape3"></div>
+            <div class="footer-bg-shape shape4"></div>
+          </div>
+        </div>
+
+
         <div class="container">
           <div class="row">
-            <div class="col-lg-5 col-md-7 col-12 mb-4 mb-md-7 mb-lg-0 order-0"> <img class="mb-4" src="home/assets/img/1-removebg-preview.png" width="150" alt="ikigai" />
+            <div class="col-lg-5 col-md-7 col-12 mb-4 mb-md-7 mb-lg-0 order-0"> <img class="mb-4" src="home/assets/img/1-removebg-preview.png" width="150" alt="ikizen" />
               <p class="fs--1 text-secondary mb-0 fw-medium">Book your consultation in minutes, get the SOLUTION for your problems.</p>
             </div>
             <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-1 order-md-2">
-              <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Ikigai</h4>
+              <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Ikizen</h4>
               <ul class="list-unstyled mb-0">
                 <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="{{route('accueil')}}">About</a></li>
-                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#destination">Experts</a></li>
+                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="{{route('accueil')}}">Experts</a></li>
               </ul>
             </div>
             <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-2 order-md-3">
@@ -202,13 +243,23 @@
 
 
       <div class="py-5 text-center">
-        <p class="mb-0 text-secondary fs--1 fw-medium">All rights reserved ikigai.ma </p>
+        <p class="mb-0 text-secondary fs--1 fw-medium">All rights reserved ikizen </p>
       </div>
     </main>
+    {{-- @include('profile.partials.chatbot') --}}
+
     <!-- ===============================================-->
     <!--    End of Main Content-->
     <!-- ===============================================-->
     @include('user.script');
+    <script src="//code.tidio.co/ezckblutrreap5ryuccizocwkfafx453.js" async></script>
+
+    <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+    <script>
+        Weglot.initialize({
+            api_key: 'wg_f046143884ddc4609603fcad0408ce432'
+        });
+    </script>
   </body>
 
 </html>

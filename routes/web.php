@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\RecommendationController;
+use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +27,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 */
+
+
+Route::post('/chatbot/response', [ChatbotController::class, 'getResponse'])->name('chat.response');
+
 
 Route::get('/', [DashboardController::class, 'index'])->name('accueil');
 Route::get('/contact', [DashboardController::class, 'contact'])->name('contact');
@@ -50,6 +56,13 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/consultations/index', [ConsultationController::class, 'index'])->name('consultations.index');
     Route::get('/consultations/create/{expert_id}', [ConsultationController::class, 'create'])->name('consultations.create');
     Route::post('/consultations/cancel/{id}', [ConsultationController::class, 'cancel'])->name('consultations.cancel');
+
+    Route::post('/consultations/{id}/rate', [ConsultationController::class, 'rate'])->name('consultations.rate');
+
+
+    Route::get('payment/{consultation_id}', [StripePaymentController::class, 'showPaymentPage'])->name('payment.page');
+    Route::post('stripe',  [StripePaymentController::class, 'stripePost'])->name('stripe.post');
+
 });
 
 /**Expert routes **/ 

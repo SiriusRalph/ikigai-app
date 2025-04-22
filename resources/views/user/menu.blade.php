@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
           <li class="nav-item px-3 px-xl-4">
-            <a class="nav-link fw-medium" aria-current="page" href="{{route('accueil')}}">Ikigai</a>
+            <a class="nav-link fw-medium" aria-current="page" href="{{route('accueil')}}">Ikizen</a>
           </li>
           <li class="nav-item px-3 px-xl-4">
             <a class="nav-link fw-medium" aria-current="page" href="{{route('contact')}}">Contact</a>
@@ -20,8 +20,8 @@
       @endguest
       @auth
       <li class="nav-item px-3 px-xl-4">
-        <a class="nav-link fw-medium" href="{{route('consultations.index')}}">Mes consultations</a>
-    </li>
+        <a class="nav-link fw-medium" href="{{route('consultations.index')}}">My consultations</a>
+      </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
             {{ Auth::user()->name }}
@@ -41,13 +41,14 @@
             <li class="nav-item px-3 px-xl-4">
                 <a class="btn btn-outline-warning order-1 order-lg-0 fw-medium" href="{{ route('test.start') }}">Book appointment</a>
             </li>
-            <li class="nav-item dropdown px-3 px-lg-0">
+            {{-- traduction --}}
+            {{-- <li class="nav-item dropdown px-3 px-lg-0">
                 <a class="d-inline-block ps-0 py-2 pe-3 text-decoration-none dropdown-toggle fw-medium" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">EN</a>
                 <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" style="border-radius:0.3rem;" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">EN</a></li>
                     <li><a class="dropdown-item" href="#!">BN</a></li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
       </div>
     </div>

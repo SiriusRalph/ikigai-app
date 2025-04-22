@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="/dashboard/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="/dashboard/assets/img/favicon.png">
   <title>
-    IKIGAI - Expert Dashboard 
+    IKIZEN - Expert Dashboard 
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -28,7 +28,7 @@
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" {{route('expertDashboardShow')}} ">
         <img src="/dashboard/assets/img/icone_ikigai-removebg-preview.png" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">IKIGAI</span>
+        <span class="ms-1 font-weight-bold">IKIZEN</span>
       </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -210,15 +210,27 @@
     gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
     gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
 
+    var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
+    gradientStroke2.addColorStop(1, 'rgba(72, 208, 132, 0.2)');
+    gradientStroke2.addColorStop(0.2, 'rgba(72, 208, 132, 0.0)');
+    gradientStroke2.addColorStop(0, 'rgba(72, 208, 132, 0)');
+
+    var gradientStroke3 = ctx1.createLinearGradient(0, 230, 0, 50);
+    gradientStroke3.addColorStop(1, 'rgba(245, 54, 92, 0.2)');
+    gradientStroke3.addColorStop(0.2, 'rgba(245, 54, 92, 0.0)');
+    gradientStroke3.addColorStop(0, 'rgba(245, 54, 92, 0)');
+
     // Récupérer les données du contrôleur Laravel
-    var months = @json($months);
+    var monthsCancelled = @json($monthsCancelled);
+    var monthsNotRealized = @json($monthsNotRealized);
+    var monthsRealized = @json($monthsRealized);
 
     new Chart(ctx1, {
         type: "line",
         data: {
             labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
             datasets: [{
-                label: "Consultations",
+                label: "Annulée",
                 tension: 0.4,
                 borderWidth: 0,
                 pointRadius: 0,
@@ -226,7 +238,31 @@
                 backgroundColor: gradientStroke1,
                 borderWidth: 3,
                 fill: true,
-                data: months,
+                data: monthsCancelled,
+                maxBarThickness: 6
+            },
+            {
+                label: "Non Réalisée",
+                tension: 0.4,
+                borderWidth: 0,
+                pointRadius: 0,
+                borderColor: "#48d084",
+                backgroundColor: gradientStroke2,
+                borderWidth: 3,
+                fill: true,
+                data: monthsNotRealized,
+                maxBarThickness: 6
+            },
+            {
+                label: "Réalisée",
+                tension: 0.4,
+                borderWidth: 0,
+                pointRadius: 0,
+                borderColor: "#f5365c",
+                backgroundColor: gradientStroke3,
+                borderWidth: 3,
+                fill: true,
+                data: monthsRealized,
                 maxBarThickness: 6
             }],
         },
@@ -235,7 +271,8 @@
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    display: false,
+                    display: true, // Afficher la légende
+                    position: 'top',
                 }
             },
             interaction: {
@@ -288,7 +325,6 @@
     });
 </script>
 
-
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -302,6 +338,7 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="/dashboard/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+
 </body>
 
 </html>

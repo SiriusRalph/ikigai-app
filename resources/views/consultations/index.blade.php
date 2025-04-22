@@ -6,10 +6,9 @@
 
     <link rel="icon" type="image/png" sizes="32x32" href="/dashboard/assets/img/favicon.png">
 
-    <title>IKIGAI - My Consultations</title>
+    <title>IKIZEN - My Consultations</title>
 
     <style>
-        /* Boutons */
         .btn-cancel {
             background-color: #ff4d4d;
             color: white;
@@ -68,7 +67,7 @@
           <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
               <li class="nav-item px-3 px-xl-4">
-                <a class="nav-link fw-medium" aria-current="page" href="{{route('accueil')}}">Ikigai</a>
+                <a class="nav-link fw-medium" aria-current="page" href="{{route('accueil')}}">Ikizen</a>
               </li>
               <li class="nav-item px-3 px-xl-4">
                 <a class="nav-link fw-medium" aria-current="page" href="{{route('contact')}}">Contact</a>
@@ -79,7 +78,7 @@
           @endguest
           @auth
           <li class="nav-item px-3 px-xl-4">
-            <a class="nav-link fw-medium" href="{{route('consultations.index')}}">Mes consultations</a>
+            <a class="nav-link fw-medium" href="{{route('consultations.index')}}">My consultations</a>
         </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
@@ -100,19 +99,15 @@
                 <li class="nav-item px-3 px-xl-4">
                     <a class="btn btn-outline-warning order-1 order-lg-0 fw-medium" href="{{ route('test.start') }}">Book appointment</a>
                 </li>
-                <li class="nav-item dropdown px-3 px-lg-0">
-                    <a class="d-inline-block ps-0 py-2 pe-3 text-decoration-none dropdown-toggle fw-medium" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">EN</a>
-                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" style="border-radius:0.3rem;" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">EN</a></li>
-                        <li><a class="dropdown-item" href="#!">BN</a></li>
-                    </ul>
-                </li>
             </ul>
           </div>
         </div>
       </nav>
 
-    <div class="container book">
+      <div style="height: 100px;"></div>
+
+
+    <div class="container table-responsive book">
         @if(session('success'))
             <div class="alert alert-success" role="alert">
                 {{ session('success') }}
@@ -165,6 +160,7 @@
                                 <span class="badge badge-sm bg-warning">{{ $consultation->statut }}</span>
                                 @elseif ($consultation->statut == 'annulée')
                                     <span class="badge badge-sm bg-danger">{{ $consultation->statut }}</span>
+                                    <p class="text-xs text-secondary mb-0">{{ $consultation->motif_annulation }}</p>
                                 @elseif ($consultation->statut == 'réalisée')
                                     <span class="badge badge-sm bg-success">{{ $consultation->statut }}</span>
                                 @else
@@ -172,29 +168,62 @@
                                 @endif
                             </td>
                             <td>
-                                @if($consultation->statut != 'annulée')
+                                @if($consultation->statut == 'non réalisée')
                                     <form action="{{ route('consultations.cancel', $consultation->id) }}" method="POST" style="display:inline;">
                                         @csrf
-                                        <button type="button" class="btn btn-info" onclick="openModal()">Annuler</button>
+                                        <button type="button" class="btn btn-info" onclick="openModal()">Cancel</button>
                                         <!-- Modal -->
                                         <div id="myModal" class="modal">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <span class="close" onclick="closeModal()">&times;</span>
-                                                    <h4>Voulez-vous annuler votre consultation ?</h4>
+                                                    <h4>Do you want to cancel your consultation ?</h4>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="form-group">
-                                                        <label for="motif_annulation">Motif d'annulation</label>
+                                                        <label for="motif_annulation">Reason for cancellation</label>
                                                         <textarea name="motif_annulation" id="motif_annulation" class="form-control" required></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-default">Annuler</button>
+                                                    <button type="submit" class="btn btn-default">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
+                                @endif
+                                @if($consultation->statut == 'réalisée' && is_null($consultation->rating))
+                                    <form action="{{ route('consultations.rate', $consultation->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        <button type="button" class="btn btn-success" onclick="openRate()">Rate</button>
+                                        <!-- Modal -->
+                                        <div id="rate" class="modal">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <span class="close" onclick="closeRate()">&times;</span>
+                                                    <h4>Rate the expert</h4>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <div class="form-group">
+                                                      <label for="rating">Votre note :</label>
+                                                      <select name="rating" class="form-control" required>
+                                                        <option value="">Choisissez...</option>
+                                                        @for($i = 1; $i <= 5; $i++)
+                                                            <option value="{{ $i }}">{{ $i }} ⭐</option>
+                                                        @endfor
+                                                      </select>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-default">Rate</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                      @elseif($consultation->statut == 'réalisée')
+                                      <p>Given rate : {{ $consultation->rating }} ⭐</p>
                                 @endif
                             </td>
                         </tr>
@@ -208,11 +237,11 @@
 
                 <div class="container">
                   <div class="row">
-                    <div class="col-lg-5 col-md-7 col-12 mb-4 mb-md-7 mb-lg-0 order-0"> <img class="mb-4" src="/home/assets/img/1-removebg-preview.png" width="150" alt="ikigai" />
+                    <div class="col-lg-5 col-md-7 col-12 mb-4 mb-md-7 mb-lg-0 order-0"> <img class="mb-4" src="/home/assets/img/1-removebg-preview.png" width="150" alt="ikizen" />
                       <p class="fs--1 text-secondary mb-0 fw-medium">Book your consultation in minutes, get the SOLUTION for your problems.</p>
                     </div>
                     <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-1 order-md-2">
-                      <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Ikigai</h4>
+                      <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Ikizen</h4>
                       <ul class="list-unstyled mb-0">
                         <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="{{route('accueil')}}">About</a></li>
                         <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#destination">Experts</a></li>
@@ -242,7 +271,7 @@
         
         
               <div class="py-5 text-center">
-                <p class="mb-0 text-secondary fs--1 fw-medium">All rights reserved ikigai.ma </p>
+                <p class="mb-0 text-secondary fs--1 fw-medium">All rights reserved ikizen </p>
               </div>
     
     <script>
@@ -254,9 +283,21 @@
             document.getElementById("myModal").style.display = "none";
         }
 
+        function openRate() {
+            document.getElementById("rate").style.display = "block";
+        }
+
+        function closeRate() {
+            document.getElementById("rate").style.display = "none";
+        }
+
         window.onclick = function(event) {
             if (event.target == document.getElementById("myModal")) {
                 closeModal();
+            }
+
+            if (event.target == document.getElementById("rate")) {
+                closeRate();
             }
         }
     </script>
@@ -269,5 +310,14 @@
     <script src="/https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="/home/vendors/fontawesome/all.min.js"></script>
     <script src="/home/assets/js/theme.js"></script>
+
+    <script src="//code.tidio.co/ezckblutrreap5ryuccizocwkfafx453.js" async></script>
+
+    <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+    <script>
+        Weglot.initialize({
+            api_key: 'wg_f046143884ddc4609603fcad0408ce432'
+        });
+    </script>
 </body>
 </html>

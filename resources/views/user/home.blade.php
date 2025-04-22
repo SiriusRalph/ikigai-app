@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <head>
-@include('user.css')
-<title>IKIGAI | Your career, our responsability</title>
+    @include('user.css')
+    <title>IKIZEN | Your career, our responsability</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   </head>
 
   <body>
 
     <main class="main" id="top">
-@include('user.menu');
+    @include('user.menu');
 
       <section style="padding-top: 7rem;">
         <div class="container">
           <div class="row align-items-center">
             <div class="col-md-5 col-lg-6 order-0 order-md-1 text-end">
-                <div class="video-container">
+                <div class="video-container w-100">
                     <video class="hero-video" autoplay loop muted playsinline>
                       <source src="home/assets/video/anim_logo.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
             <div class="col-md-7 col-lg-6 text-md-start text-center py-6">
-              <h4 class="fw-bold text-danger mb-3">Take Your Career to Another Level</h4>
-              <h1 class="hero-title">Work, studies and career guidance</h1>
-              <p class="mb-4 fw-medium">Don't look far, Ikigai is here <br class="d-none d-xl-block" />to help you find your way!!!<br class="d-none d-xl-block" /></p>
-              <div class="text-center text-md-start"> <a class="btn btn-primary btn-lg me-md-4 mb-3 mb-md-0 border-0 primary-btn-shadow" href="{{ route('test.start') }}" role="button">Book now</a>
+              <h4 class="fw-bold text-danger mb-3 animate-element fade-in-up">Take Your Career to Another Level</h4>
+              <h1 class="hero-title animate-element fade-in-up">Work, studies and career guidance</h1>
+              <p class="mb-4 fw-medium animate-element fade-in-up" style="animation-delay: 0.4s;">Don't look far, Ikizen is here <br class="d-none d-xl-block" />to help you find your way!!!<br class="d-none d-xl-block" /></p>
+              <div class="text-center text-md-start animate-element fade-in-up" style="animation-delay: 0.6s;"> <a class="btn btn-primary btn-lg me-md-4 mb-3 mb-md-0 border-0 primary-btn-shadow float-animation pulse-button" href="{{ route('test.start') }}" role="button">Book now</a>
               </div>
             </div>
           </div>
@@ -38,8 +41,8 @@
         <div class="container">
           <div class="position-absolute z-index--1 end-0 d-none d-lg-block"><img src="home/assets/img/category/shape.svg" style="max-width: 200px" alt="service" /></div>
           <div class="mb-7 text-center">
-            <h5 class="text-secondary">IKIGAI </h5>
-            <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">Why Ikigai ?</h3>
+            <h5 class="text-secondary">IKIZEN </h5>
+            <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">Why Ikizen ?</h3>
           </div>
           <div class="row">
             <div class="col-lg-3 col-sm-6 mb-6">
@@ -91,21 +94,74 @@
           </div>
           <div class="row">
 
-            @foreach ($experts as $expert)      
-                <div class="col-md-4 mb-4">
-                    <div class="card overflow-hidden shadow"> <img src="{{ asset('storage/' . $expert->photo) }}" alt="expert image" >
-                        <div class="card-body py-4 px-3">
-                            <div class="d-flex flex-column flex-lg-row justify-content-between mb-3">
-                                <h4 class="text-secondary fw-medium">
-                                    <a class="link-900 text-decoration-none stretched-link" href="{{ route('consultations.create', ['expert_id' => $expert->id]) }}">{{ $expert->prenom }} {{ $expert->nom }}</a>
-                                </h4>
-                                <span class="fs-1 fw-medium">Tarif: {{ $expert->tarif }} DHS/30min</span>
-                            </div>
-                            <div class="d-flex align-items-center"><span class="fs-0 fw-medium">Experience: {{ $expert->experience }} years</span></div>
+            <div class="row expert-cards">
+              @foreach ($experts as $expert)      
+                <div class="col-md-4 mb-5">
+                  <!-- Expert Card with Animation -->
+                  <div class="expert-card">
+                    <div class="expert-card-inner">
+                      <!-- Front of Card -->
+                      <div class="expert-card-front">
+                        <div class="expert-image-container">
+                          <div class="expert-image-wrapper">
+                            <img src="{{ asset('storage/' . $expert->photo) }}" alt="{{ $expert->prenom }} {{ $expert->nom }}" class="expert-image">
+                          </div>
+                          <div class="expert-badge">Top Rated</div>
                         </div>
+                        <div class="expert-info">
+                          <h3 class="expert-name">{{ $expert->prenom }} {{ $expert->nom }}</h3>
+                          {{-- <div class="expert-rating">
+                            <span class="stars">
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star-half-alt"></i>
+                            </span>
+                            <span class="rating-count">4.8</span>
+                          </div> --}}
+                          <div class="expert-tags">
+                            @foreach (explode(',', $expert->categorie) as $cat)
+                              <span class="tag">{{ trim($cat) }}</span>
+                            @endforeach
+                          </div>
+                          <div class="expert-details">
+                            <div class="detail">
+                              <i class="me-2 fas fa-briefcase"></i>
+                              <span>Experience: {{ $expert->experience }} years</span>
+                            </div>
+                            <div class="detail">
+                              <i class="me-2 fas fa-money-bill-wave"></i>
+                              <span>{{ $expert->tarif }} DHS/30min</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="expert-card-back">
+                        <div class="expert-bio">
+                          <h4>About {{ $expert->prenom }}</h4>
+                          <p>{{ $expert->bio ?? 'No bio available for this expert.' }}</p>
+                          <div class="expertise-areas">
+                            <h5>Areas of Expertise:</h5>
+                            <ul>
+                              @foreach (explode(',', $expert->domaine) as $dom)
+                                <li>{{ trim($dom) }}</li>
+                              @endforeach
+                            </ul>
+                          </div>
+                        </div>
+                        <a href="{{ route('consultations.create', ['expert_id' => $expert->id]) }}" class="book-button">
+                          Book Consultation
+                          <i class="fas fa-arrow-right"></i>
+                        </a>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            @endforeach
+              @endforeach
+            </div>
+            
 
           </div>
         </div><!-- end of .container-->
@@ -121,24 +177,24 @@
             <div class="col-lg-6">
               <div class="mb-4 text-start">
                 <h5 class="text-secondary">Easy and Fast </h5>
-                <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">Book your consultation NOW</h3>
+                <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">Book your consultation <span class="text-primary">NOW</span> </h3>
               </div>
               <div class="d-flex align-items-start mb-5">
-                <div class="bg-primary me-sm-4 me-3 p-3" style="border-radius: 13px"> <img src="home/assets/img/steps/selection.svg" width="22" alt="steps" /></div>
+                <div class="step-number bg-primary me-sm-4 me-3 p-3" style="border-radius: 13px"> 1</div>
                 <div class="flex-1">
                   <h5 class="text-secondary fw-bold fs-0">Select the expert</h5>
                   <p>Choose the coach you want, or the <br class="d-none d-sm-block"> expert we recommend you.</p>
                 </div>
               </div>
               <div class="d-flex align-items-start mb-5">
-                <div class="bg-danger me-sm-4 me-3 p-3" style="border-radius: 13px"> <img src="home/assets/img/steps/water-sport.svg" width="22" alt="steps" /></div>
+                <div class="step-number bg-danger me-sm-4 me-3 p-3" style="border-radius: 13px">2 </div>
                 <div class="flex-1">
                   <h5 class="text-secondary fw-bold fs-0">Schedule your consultation</h5>
                   <p>Choose the date and time that suits<br class="d-none d-sm-block"> you, and make your payment.</p>
                 </div>
               </div>
               <div class="d-flex align-items-start mb-5">
-                <div class="bg-info me-sm-4 me-3 p-3" style="border-radius: 13px"> <img src="home/assets/img/steps/taxi.svg" width="22" alt="steps" /></div>
+                <div class="step-number bg-info me-sm-4 me-3 p-3" style="border-radius: 13px">3 </div>
                 <div class="flex-1">
                   <h5 class="text-secondary fw-bold fs-0">Make your video call</h5>
                   <p> When your consultation time arrives, <br class="d-none d-sm-block"> communicate with the expert through video call.</p>
@@ -184,7 +240,7 @@
                       <div class="card shadow" style="border-radius:10px;">
                         <div class="position-absolute start-0 top-0 translate-middle"> <img class="rounded-circle fit-cover" src="home/assets/img/testimonial/author.png" height="65" width="65" alt="" /></div>
                         <div class="card-body p-4">
-                          <p class="fw-medium mb-4">&quot;Before graduating, I was lost about my career, but thanks to Ikigai and the advice of the experts, I was able to find my path by choosing to study computer science and I love it.&quot;</p>
+                          <p class="fw-medium mb-4">&quot;Before graduating, I was lost about my career, but thanks to Ikizen and the advice of the experts, I was able to find my path by choosing to study computer science and I love it.&quot;</p>
                           <h5 class="text-secondary">Adam Mounir</h5>
                           <p class="fw-medium fs--1 mb-0">Baccalaureate student</p>
                         </div>
@@ -230,13 +286,23 @@
       <!-- <section> begin ============================-->
       <section id="footer" class="pb-0 pb-lg-4">
 
+        <div class="footer-bg-wrapper">
+          <div class="footer-bg-animation">
+            <div class="footer-bg-shape shape1"></div>
+            <div class="footer-bg-shape shape2"></div>
+            <div class="footer-bg-shape shape3"></div>
+            <div class="footer-bg-shape shape4"></div>
+          </div>
+        </div>
+
+
         <div class="container">
           <div class="row">
-            <div class="col-lg-5 col-md-7 col-12 mb-4 mb-md-7 mb-lg-0 order-0"> <img class="mb-4" src="home/assets/img/1-removebg-preview.png" width="150" alt="ikigai" />
+            <div class="col-lg-5 col-md-7 col-12 mb-4 mb-md-7 mb-lg-0 order-0"> <img class="mb-4 float-animation" src="home/assets/img/1-removebg-preview.png" width="150" alt="ikizen" />
               <p class="fs--1 text-secondary mb-0 fw-medium">Book your consultation in minutes, get the SOLUTION for your problems.</p>
             </div>
             <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-1 order-md-2">
-              <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Ikigai</h4>
+              <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Ikizen</h4>
               <ul class="list-unstyled mb-0">
                 <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="{{route('accueil')}}">About</a></li>
                 <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#destination">Experts</a></li>
@@ -266,13 +332,104 @@
 
 
       <div class="py-5 text-center">
-        <p class="mb-0 text-secondary fs--1 fw-medium">All rights reserved ikigai.ma </p>
+        <p class="mb-0 text-secondary fs--1 fw-medium">All rights reserved ikizen </p>
       </div>
     </main>
+    {{-- @include('profile.partials.chatbot') --}}
+
     <!-- ===============================================-->
     <!--    End of Main Content-->
     <!-- ===============================================-->
     @include('user.script');
+
+    <script>
+      // Add animation when cards enter viewport
+      document.addEventListener('DOMContentLoaded', function() {
+        const expertCards = document.querySelectorAll('.expert-card');
+        
+        const observerOptions = {
+          threshold: 0.3,
+          rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries, observer) {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate-in');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+        
+        expertCards.forEach(card => {
+          observer.observe(card);
+          
+          // Add initial hidden state for animation
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(30px)';
+          card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+        
+        // Animation class
+        document.head.insertAdjacentHTML('beforeend', `
+          <style>
+            .expert-card.animate-in {
+              opacity: 1 !important;
+              transform: translateY(0) !important;
+            }
+            
+            .col-md-4:nth-child(2) .expert-card {
+              transition-delay: 0.2s;
+            }
+            
+            .col-md-4:nth-child(3) .expert-card {
+              transition-delay: 0.4s;
+            }
+          </style>
+        `);
+      });
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        function isInViewport(element) {
+          const rect = element.getBoundingClientRect();
+          return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+          );
+        }
+      
+        const animateElements = document.querySelectorAll('.animate-element');
+        
+        function animateOnScroll() {
+          animateElements.forEach(element => {
+            if (isInViewport(element) && !element.classList.contains('animated')) {
+              const delay = element.style.animationDelay || '0s';
+              
+              setTimeout(() => {
+                element.classList.add('animated');
+              }, parseFloat(delay) * 1000);
+            }
+          });
+        }
+        
+        animateOnScroll();
+        
+        window.addEventListener('scroll', animateOnScroll);
+      });
+      </script>
+
+    <script src="//code.tidio.co/ezckblutrreap5ryuccizocwkfafx453.js" async></script>
+
+    <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+    <script>
+        Weglot.initialize({
+            api_key: 'wg_f046143884ddc4609603fcad0408ce432'
+        });
+    </script>
   </body>
 
 </html>

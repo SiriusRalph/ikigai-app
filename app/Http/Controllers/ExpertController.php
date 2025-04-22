@@ -36,6 +36,8 @@ class ExpertController extends Controller
             'tel' => 'required|string|max:15',
             'categorie' => 'required|string|max:255',
             'tarif' => 'required|numeric',
+            'genre' => 'nullable|string|max:25',
+            'domaine' => 'nullable|string|max:245',
             'experience' => 'required|integer|min:0',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -48,6 +50,8 @@ class ExpertController extends Controller
             'tel' => $request->tel,
             'categorie' => $request->categorie,
             'tarif' => $request->tarif,
+            'genre' => $request->genre,
+            'domaine' => $request->domaine,
             'experience' => $request->experience,
             'photo' => $path,
         ]);
@@ -67,6 +71,8 @@ class ExpertController extends Controller
             'tel' => 'required|string|max:255',
             'categorie' => 'required|string|max:255',
             'tarif' => 'required|numeric',
+            'genre' => 'nullable|string|max:25',
+            'domaine' => 'nullable|string|max:245',
             'experience' => 'required|integer|min:0',
             'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -81,6 +87,8 @@ class ExpertController extends Controller
             'tel' => $request->tel,
             'categorie' => $request->categorie,
             'tarif' => $request->tarif,
+            'genre' => $request->genre,
+            'domaine' => $request->domaine,
             'experience' => $request->experience,
         ]);
 
@@ -115,7 +123,6 @@ class ExpertController extends Controller
         return redirect()->route('expert.consultations')->with('success', 'Consultation marked as done.');
     }
 
-    // pour générer le lien de la réunion
     public function generateMeetingLink($id)
     {
         $consultation = Consultation::findOrFail($id);

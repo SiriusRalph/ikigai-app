@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="/dashboard/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="/dashboard/assets/img/favicon.png">
   <title>
-    IKIGAI - Admin - Consultations
+    IKIZEN - Admin - Consultations
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -28,7 +28,7 @@
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" {{route('adminDashboardShow')}} ">
         <img src="/dashboard/assets/img/icone_ikigai-removebg-preview.png" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">IKIGAI</span>
+        <span class="ms-1 font-weight-bold">IKIZEN</span>
       </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -159,7 +159,7 @@
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
-              <h6>Cancelled consultations</h6>
+              <h6>All consultations</h6>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
@@ -173,7 +173,7 @@
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Time</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Duration</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>                      
                       <th class="text-secondary opacity-7"></th>
 
                     </tr>
@@ -223,7 +223,8 @@
                         @if ($consultation->statut == 'non réalisée')
                         <span class="badge badge-sm bg-gradient-warning">{{ $consultation->statut }}</span>
                         @elseif ($consultation->statut == 'annulée')
-                            <span class="badge badge-sm bg-gradient-danger">{{ $consultation->statut }}</span>
+                            <span class="badge badge-sm bg-gradient-danger">{{ $consultation->statut }} </span>
+                            <p>{{ $consultation->motif_annulation }}</p>
                         @elseif ($consultation->statut == 'réalisée')
                             <span class="badge badge-sm bg-gradient-success">{{ $consultation->statut }}</span>
                         @else

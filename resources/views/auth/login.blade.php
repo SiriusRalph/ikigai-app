@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="dashboard/assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="dashboard/assets/img/favicon.png">
-    <title>Ikigai - Login</title>
+    <title>IKIZEN - Login</title>
     <!-- Fonts and icons -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <link href="dashboard/assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="dashboard/assets/css/argon-dashboard.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body class="">
@@ -25,13 +27,7 @@
                         <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3" href="/">
                             <img src="home/assets/img/1-removebg-preview.png" width="70" alt="">
                         </a>
-                        <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon mt-2">
-                                <span class="navbar-toggler-bar bar1"></span>
-                                <span class="navbar-toggler-bar bar2"></span>
-                                <span class="navbar-toggler-bar bar3"></span>
-                            </span>
-                        </button>
+
 
                     </div>
                 </nav>
@@ -46,7 +42,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
-                            <div class="card card-plain">
+                            <div class="card card-plain shadow-lg border-0 rounded-4">
                                 <div class="card-header pb-0 text-start">
                                     <h4 class="font-weight-bolder">Sign In</h4>
                                     <p class="mb-0">Enter your email and password to sign in</p>
@@ -56,16 +52,22 @@
                                         @csrf
 
                                         <!-- Email Address -->
-                                        <div class="mb-3">
-                                            <input type="email" class="form-control form-control-lg" placeholder="Email" id="email" name="email" :value="old('email')" required autofocus />
-                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                        <div class="input-group input-group-lg mb-3">
+                                            <span class="input-group-text bg-white border-end-0">
+                                              <i class="fas fa-envelope text-muted"></i>
+                                            </span>
+                                            <input type="email" class="form-control border-start-0" placeholder="Email" id="email" name="email" :value="old('email')" required autofocus>
                                         </div>
+                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
                                         <!-- Password -->
-                                        <div class="mb-3">
-                                            <input type="password" class="form-control form-control-lg" placeholder="Password" id="password" name="password" required />
-                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                        <div class="input-group input-group-lg mb-3">
+                                            <span class="input-group-text bg-white border-end-0">
+                                                <i class="fas fa-lock text-muted"></i>
+                                            </span>
+                                            <input type="password" class="form-control border-start-0" placeholder="Password" id="password" name="password" required />
                                         </div>
+                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
@@ -97,6 +99,7 @@
             </div>
         </section>
     </main>
+
 
     <!-- Core JS Files -->
     <script src="dashboard/assets/js/core/popper.min.js"></script>

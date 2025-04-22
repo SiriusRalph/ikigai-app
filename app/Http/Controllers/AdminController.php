@@ -41,6 +41,8 @@ class AdminController extends Controller
             'type' => $request->type,
         ]);
 
+        $user->sendWelcomeNotification();
+
         return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
     }
 
