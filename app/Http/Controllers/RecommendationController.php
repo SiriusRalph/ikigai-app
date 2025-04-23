@@ -48,8 +48,8 @@ class RecommendationController extends Controller
                 $score += 5;
             }
 
-            $userDomain = $this->getAnswerByQuestionText($answers, "In which field(s) do you plan to work or retrain ? Ex: Tech, Marketing, Education...");
-            if ($userDomain && stripos($expert->domaine, $userDomain) !== false) {
+            $userDomain = $this->getAnswerByQuestionText($answers, "Which consultant field interests you ?");
+            if ($userDomain && strtolower($expert->domaine) === strtolower($userDomain)) {
                 $score += 15;
             }
 

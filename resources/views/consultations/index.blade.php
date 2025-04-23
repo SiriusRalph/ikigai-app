@@ -9,6 +9,13 @@
     <title>IKIZEN - My Consultations</title>
 
     <style>
+        .book-consul{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          min-height: 80vh;
+          padding-bottom: 80px;
+        }
         .btn-cancel {
             background-color: #ff4d4d;
             color: white;
@@ -107,7 +114,7 @@
       <div style="height: 100px;"></div>
 
 
-    <div class="container table-responsive book">
+    <div class="container table-responsive book-consul">
         @if(session('success'))
             <div class="alert alert-success" role="alert">
                 {{ session('success') }}
