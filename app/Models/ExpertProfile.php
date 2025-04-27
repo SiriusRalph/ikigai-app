@@ -11,7 +11,7 @@ class ExpertProfile extends Model
     use HasFactory;
     protected $fillable = [
         'user_id', 'nom', 'tel', 'categorie', 'tarif', 'experience', 'photo',
-        'genre', 'domaine'
+        'genre', 'domaine', 'bio'
     ];
 
     /**
@@ -22,6 +22,11 @@ class ExpertProfile extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function consultations()
+    {
+        return $this->hasMany(Consultation::class, 'expert_id');
     }
 
     

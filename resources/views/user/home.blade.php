@@ -110,16 +110,32 @@
                         </div>
                         <div class="expert-info">
                           <h3 class="expert-name">{{ $expert->prenom }} {{ $expert->nom }}</h3>
-                          {{-- <div class="expert-rating">
-                            <span class="stars">
-                              <i class="fas fa-star"></i>
-                              <i class="fas fa-star"></i>
-                              <i class="fas fa-star"></i>
-                              <i class="fas fa-star"></i>
-                              <i class="fas fa-star-half-alt"></i>
-                            </span>
-                            <span class="rating-count">4.8</span>
-                          </div> --}}
+
+                          @php
+                            $ratings = $expert->consultations->pluck('rating')->filter();
+                            $averageRating = $ratings->count() ? number_format($ratings->avg(), 1) : null;
+                            $reviewCount = $ratings->count();
+
+                          @endphp
+
+                          @if ($averageRating)
+                            <div class="expert-rating">
+                              <span class="stars">
+                                @for ($i = 0; $i < floor($averageRating); $i++)
+                                  <i class="fas fa-star"></i>
+                                @endfor
+                                @if ($averageRating - floor($averageRating) >= 0.5)
+                                  <i class="fas fa-star-half-alt"></i>
+                                @endif
+                              </span>
+                              <span class="rating-count">{{ $averageRating }}/5</span>
+                              <span class="review-count text-muted ms-2">({{ $reviewCount }} reviews)</span>
+
+                            </div>
+                          @else
+                            <div class="expert-rating text-muted">Not yet rated</div>
+                          @endif
+
                           <div class="expert-tags">
                             @foreach (explode(',', $expert->categorie) as $cat)
                               <span class="tag">{{ trim($cat) }}</span>

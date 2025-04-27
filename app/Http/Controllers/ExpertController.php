@@ -38,6 +38,7 @@ class ExpertController extends Controller
             'tarif' => 'required|numeric',
             'genre' => 'nullable|string|max:25',
             'domaine' => 'nullable|string|max:245',
+            'bio' => 'nullable|string|max:245',
             'experience' => 'required|integer|min:0',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -52,6 +53,7 @@ class ExpertController extends Controller
             'tarif' => $request->tarif,
             'genre' => $request->genre,
             'domaine' => $request->domaine,
+            'bio' => $request->bio,
             'experience' => $request->experience,
             'photo' => $path,
         ]);
@@ -73,6 +75,7 @@ class ExpertController extends Controller
             'tarif' => 'required|numeric',
             'genre' => 'nullable|string|max:25',
             'domaine' => 'nullable|string|max:245',
+            'bio' => 'nullable|string|max:245',
             'experience' => 'required|integer|min:0',
             'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -89,6 +92,8 @@ class ExpertController extends Controller
             'tarif' => $request->tarif,
             'genre' => $request->genre,
             'domaine' => $request->domaine,
+            'bio' => $request->bio,
+
             'experience' => $request->experience,
         ]);
 

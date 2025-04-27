@@ -175,20 +175,29 @@
                             <label for="tel">Phone:</label>
                             <input type="text" class="form-control" name="tel" id="tel" required>
                             @error('tel')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                              <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div>
-                          <label for="genre">Gender</label>
-                          <select name="genre" id="genre" required>
-                            <option value="homme">Male</option>
-                            <option value="femme">Female</option>
-                          </select>
-                          @error('genre')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                            <label for="genre">Gender</label>
+                            <select name="genre" id="genre" required>
+                              <option value="homme">Male</option>
+                              <option value="femme">Female</option>
+                            </select>
+                            @error('genre')
+                              <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
+                        <div>
+                          <label for="bio">Bio:</label>
+                          <textarea class="form-control" id="bio" name="bio" rows="4">Enter the expert biography</textarea>
+                          @error('bio')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                        </div>
+                      
 
                         <div>
                             <label for="categorie">Category:</label>

@@ -196,20 +196,39 @@
                             <label for="tel">Phone:</label>
                             <input type="text" class="form-control" name="tel" id="tel" value="{{ $profile->tel }}" required>
                         </div>
+
+                        <div>
+                            <label for="genre">Gender:</label>
+                            <select class="form-control" name="genre" id="genre" required>
+                              <option value="homme" {{ (old('genre', $expert->genre ?? '') == 'homme') ? 'selected' : '' }}>Male</option>
+                              <option value="femme" {{ (old('genre', $expert->genre ?? '') == 'femme') ? 'selected' : '' }}>Female</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="bio">Bio:</label>
+                            <textarea class="form-control" id="bio" name="bio" rows="4" value="{{ $profile->bio }}"></textarea>
+
+                        </div>
+
                         <div>
                             <label for="categorie">Category:</label>
                             <input type="text" class="form-control" name="categorie" id="categorie" value="{{ $profile->categorie }}" required>
                         </div>
                         <div>
-                            <label for="tarif">Tarif:</label>
+                            <label for="domaine">Field:</label>
+                            <input type="text" class="form-control" name="domaine" id="domaine" value="{{ $profile->domaine }}" required>
+                        </div>
+                        <div>
+                            <label for="tarif">Price:</label>
                             <input type="text" class="form-control" name="tarif" id="tarif" value="{{ $profile->tarif }}" required>
                         </div>
                         <div>
-                            <label for="experience">Années d'expérience:</label>
+                            <label for="experience">Years of experience:</label>
                             <input type="number" class="form-control" name="experience" id="experience" value="{{ $profile->experience }}" required>
                         </div>
                         <div>
-                            <label for="photo">Photo:</label>
+                            <label for="photo">Picture:</label>
                             <input type="file" class="form-control" name="photo" id="photo">
                         </div>
                         <button class="btn bg-gradient-info w-100 my-4 mb-2" type="submit">Update Profile</button>

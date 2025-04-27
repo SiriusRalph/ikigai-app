@@ -110,7 +110,7 @@ class DashboardController extends Controller
     }
 
     public function index(){
-        $experts = ExpertProfile::all();
+        $experts = ExpertProfile::with('consultations')->get();
         return view('user.home', compact('experts'));
     }
 
