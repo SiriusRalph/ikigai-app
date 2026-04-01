@@ -18,6 +18,114 @@
   <link href="/dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="/dashboard/assets/css/argon-dashboard.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg,    #1854AF 0%,    #1854AF 100%);
+      --card-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.06), 0 2px 10px -1px rgba(0, 0, 0, 0.04);
+      --question-card-hover: 0 8px 30px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .bg-primary {
+      background: var(--primary-gradient) !important;
+      height: 280px;
+    }
+    
+    .sidenav {
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
+      border: none !important;
+    }
+    
+    .navbar-main {
+      backdrop-filter: blur(10px);
+      background-color:    #1854AF!important;
+    }
+    
+    .card {
+      border: none;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-header {
+      background: white;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 1.5rem;
+    }
+    
+    .list-group-item {
+      transition: all 0.3s ease;
+      border-radius: 10px !important;
+      margin-bottom: 1rem !important;
+      border: 1px solid rgba(0, 0, 0, 0.03) !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+    }
+    
+    .list-group-item:hover {
+      transform: translateX(5px);
+      box-shadow: var(--question-card-hover);
+      background: #f8f9fa !important;
+    }
+    
+    .btn-link {
+      transition: all 0.2s ease;
+      border-radius: 8px;
+      padding: 8px 12px !important;
+    }
+    
+    .btn-link:hover {
+      background: rgba(0, 0, 0, 0.03);
+      text-decoration: none !important;
+    }
+    
+    .btn-link.text-danger:hover {
+      background: rgba(220, 53, 69, 0.1);
+    }
+    
+    .bg-gradient-warning {
+      background: linear-gradient(135deg, #fb6340 0%, #fbb140 100%) !important;
+      color: white !important;
+      box-shadow: 0 4px 10px rgba(251, 140, 64, 0.3);
+      border: none !important;
+    }
+    
+    .bg-gradient-warning:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(251, 140, 64, 0.4);
+    }
+    
+    .alert {
+      border: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      border-left: 4px solid;
+    }
+    
+    .section-title {
+      letter-spacing: 0.5px;
+      font-size: 0.7rem;
+      color: #6c757d;
+    }
+    
+    .nav-link.active {
+      background: rgba(94, 114, 228, 0.1) !important;
+      border-radius: 8px;
+    }
+    
+    .nav-link.active .icon {
+      background: var(--primary-gradient) !important;
+    }
+    
+    .nav-link.active .icon i {
+      color: white !important;
+      opacity: 1 !important;
+    }
+  </style>
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
@@ -42,7 +150,7 @@
           </a>
         </li>
         <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Coaches section</h6>
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 section-title">Coaches section</h6>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="{{route('experts.indexProfiles')}}">
@@ -53,7 +161,7 @@
           </a>
         </li>
         <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Test questions section</h6>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 section-title">Test questions section</h6>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="{{route('questions.index')}}">
@@ -64,7 +172,7 @@
             </a>
           </li>
           <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Consultation section</h6>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 section-title">Consultation section</h6>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="{{route('admin.consultations')}}">
@@ -83,7 +191,7 @@
             </a>
           </li>
           <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account section</h6>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 section-title">Account section</h6>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="{{route('admin.users.index')}}">
@@ -158,29 +266,29 @@
 
         <div class="col-md-12 mt-4">
             <div class="card">
-                <div class="card-header pb-0 px-3">
+                <div class="card-header pb-0 px-3 d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Questions</h4>
-                    <div class=" text-end">
+                    <div class="text-end">
                         <a class="btn bg-gradient-warning mb-0" href="{{ route('questions.create') }}"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Create Question</a>
                     </div>
                 </div>
                 <div class="card-body pt-4 p-3">
-                    <ul class="list-group">
+                    <ul class="list-group list-group-flush">
 
                         @foreach($questions as $question)
-                        <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                            <div class="d-flex flex-column">
-                                <h6 class="mb-3 text-sm">{{ $question->question }}</h6>
-                                <span class="mb-2 text-xs">ID: <span class="text-dark font-weight-bold ms-sm-2">{{ $question->id }}</span></span>
-                                <span class="mb-2 text-xs">Type: <span class="text-dark ms-sm-2 font-weight-bold">{{ $question->type }}</span></span>
-                                @if ( $question->type === "select" || $question->type === "radio")
-                                    <span class="text-xs">Options: <span class="text-dark ms-sm-2 font-weight-bold">{{ is_array($question->options) ? implode(', ', $question->options) : '' }}</span></span>
-                                @else
-                                    <span> </span>
-                                @endif
+                        <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg align-items-center">
+                            <div class="d-flex flex-column flex-grow-1">
+                                <h6 class="mb-3 text-sm font-weight-bold text-dark">{{ $question->question }}</h6>
+                                <div class="d-flex flex-wrap gap-4">
+                                    <span class="text-xs">ID: <span class="text-dark font-weight-bold ms-sm-2">{{ $question->id }}</span></span>
+                                    <span class="text-xs">Type: <span class="text-dark ms-sm-2 font-weight-bold badge bg-light text-dark">{{ $question->type }}</span></span>
+                                    @if ( $question->type === "select" || $question->type === "radio")
+                                        <span class="text-xs">Options: <span class="text-dark ms-sm-2 font-weight-bold">{{ is_array($question->options) ? implode(', ', $question->options) : '' }}</span></span>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="ms-auto text-end">
-                                <a class="btn btn-link text-dark px-3 mb-0" href="{{ route('questions.edit', $question->id) }}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+                            <div class="ms-auto text-end d-flex">
+                                <a class="btn btn-link text-dark px-3 mb-0 me-2" href="{{ route('questions.edit', $question->id) }}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
                                 <form action="{{ route('questions.destroy', $question->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')

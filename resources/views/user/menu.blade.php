@@ -12,6 +12,9 @@
             <a class="nav-link fw-medium" aria-current="page" href="{{route('accueil')}}">Ikizen</a>
           </li>
           <li class="nav-item px-3 px-xl-4">
+            <a class="nav-link fw-medium" aria-current="page" href="{{route('about')}}">About</a>
+          </li>
+          <li class="nav-item px-3 px-xl-4">
             <a class="nav-link fw-medium" aria-current="page" href="{{route('contact')}}">Contact</a>
           </li>
         @guest

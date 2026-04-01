@@ -1,258 +1,417 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
-
-  <head>
-@include('user.css');
-<title>IKIZEN - Contact</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  </head>
-
-  <body>
-
-    <main class="main" id="top">
-@include('user.menu');
-
-      <section class="contact-section" style="padding: 7rem 0; background-color: #f8f9fa;">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-10">
-              <div class="contact-wrapper">
-                <div class="row g-0">
-                  <!-- Contact Info Side -->
-                  <div class="col-lg-5">
-                    <div class="contact-info-panel text-white p-5" style="background: linear-gradient(135deg, #1853b2bb 0%, #1853b2 100%); height: 100%; border-radius: 12px 0 0 12px;">
-                      <div class="info-header mb-5 reveal-left">
-                        <span class="badge rounded-pill bg-white text-primary px-3 py-2 mb-3">Contact Us</span>
-                        <h2 class="fs-3 fw-bold mb-4">Get in touch with our team</h2>
-                        <p class="mb-5">Have questions or need assistance? We're here to help. Reach out to us through any channel below.</p>
-                      </div>
-                      
-                      <div class="contact-details">
-                        <div class="contact-item d-flex align-items-center mb-4 reveal-left" style="animation-delay: 0.2s;">
-                          <div class="icon-box me-3">
-                            <i class="fas fa-phone-alt"></i>
-                          </div>
-                          <div class="info">
-                            <h6 class="mb-0">Phone Number</h6>
-                            <p class="mb-0">06 13 45 76 00</p>
-                          </div>
-                        </div>
-                        
-                        <div class="contact-item d-flex align-items-center mb-4 reveal-left" style="animation-delay: 0.3s;">
-                          <div class="icon-box me-3">
-                            <i class="fas fa-envelope"></i>
-                          </div>
-                          <div class="info">
-                            <h6 class="mb-0">Email Address</h6>
-                            <p><a href="mailto:ikizzeen@gmail.com">ikizzeen@gmail.com</a></p>
-                          </div>
-                        </div>
-
-                      </div>
-                      
-                      <div class="social-links mt-5 reveal-left" style="animation-delay: 0.5s;">
-                        <h6 class="mb-3">Follow Us</h6>
-                        <div class="d-flex gap-3">
-                          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                          <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- Form Side -->
-                  <div class="col-lg-7">
-                    <div class="contact-form-panel bg-white p-5" style="border-radius: 0 12px 12px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-                      <div class="form-header mb-4 reveal-right">
-                        <h3 class="fs-4 fw-bold">Send us a message</h3>
-                        <p class="text-muted">Fill out the form below and we'll get back to you shortly</p>
-                      </div>
-                      
-                      <form action="https://api.web3forms.com/submit" method="POST" id="contactForm" class="needs-validation" novalidate>
-                        <input type="hidden" name="access_key" value="c667aef2-b7a4-4067-bf4d-c23cf3cb3cf0">
-                        
-                        <div class="mb-4 reveal-right" style="animation-delay: 0.2s;">
-                          <label for="name" class="form-label">Full Name</label>
-                          <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            <input type="text" class="form-control form-control-lg border-start-0" name="name" id="name" placeholder="Enter your name" required>
-                            <div class="invalid-feedback">Please enter your name</div>
-                          </div>
-                        </div>
-                        
-                        <div class="mb-4 reveal-right" style="animation-delay: 0.3s;">
-                          <label for="email" class="form-label">Email Address</label>
-                          <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                            <input type="email" class="form-control form-control-lg border-start-0" name="email" id="email" placeholder="Enter your email" pattern="[^ @]*@[^ @]*" required>
-                            <div class="invalid-feedback">Please enter a valid email address</div>
-                          </div>
-                        </div>
-                        
-                        <div class="mb-4 reveal-right" style="animation-delay: 0.4s;">
-                          <label for="message" class="form-label">Message</label>
-                          <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-comment-dots"></i></span>
-                            <textarea class="form-control form-control-lg border-start-0" name="message" id="message" rows="4" placeholder="Write your message here..." required></textarea>
-                            <div class="invalid-feedback">Please enter your message</div>
-                          </div>
-                        </div>
-                        
-                        <div class="mt-4 reveal-right" style="animation-delay: 0.5s;">
-                          <button type="submit" id="form-submit" class="btn btn-primary btn-lg w-100 submit-button">
-                            <span class="btn-text">Send Message</span>
-                            <span class="btn-icon"><i class="fas fa-paper-plane ms-2"></i></span>
-                          </button>
-                        </div>
-                      </form>
-                      
-                      <div id="message-container" class="mt-4"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-
-      <!-- <section> begin ============================-->
-      <section id="testimonial">
-
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-5">
-              <div class="mb-8 text-start">
-                <h5 class="text-secondary">Testimonials </h5>
-                <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">What people say about Us.</h3>
-              </div>
-            </div>
-            <div class="col-lg-1"></div>
-            <div class="col-lg-6">
-              <div class="pe-7 ps-5 ps-lg-0">
-                <div class="carousel slide carousel-fade position-static" id="testimonialIndicator" data-bs-ride="carousel">
-                  <div class="carousel-indicators">
-                    <button class="active" type="button" data-bs-target="#testimonialIndicator" data-bs-slide-to="0" aria-current="true" aria-label="Testimonial 0"></button>
-                    <button class="false" type="button" data-bs-target="#testimonialIndicator" data-bs-slide-to="1" aria-current="true" aria-label="Testimonial 1"></button>
-                    <button class="false" type="button" data-bs-target="#testimonialIndicator" data-bs-slide-to="2" aria-current="true" aria-label="Testimonial 2"></button>
-                  </div>
-                  <div class="carousel-inner">
-                    <div class="carousel-item position-relative active">
-                      <div class="card shadow" style="border-radius:10px;">
-                        <div class="position-absolute start-0 top-0 translate-middle"> <img class="rounded-circle fit-cover" src="home/assets/img/testimonial/author.png" height="65" width="65" alt="" /></div>
-                        <div class="card-body p-4">
-                          <p class="fw-medium mb-4">&quot;Before graduating, I was lost about my career, but thanks to Ikizen and the advice of the experts, I was able to find my path by choosing to study computer science and I love it.&quot;</p>
-                          <h5 class="text-secondary">Adam Mounir</h5>
-                          <p class="fw-medium fs--1 mb-0">Baccalaureate student</p>
-                        </div>
-                      </div>
-                      <div class="card shadow-sm position-absolute top-0 z-index--1 mb-3 w-100 h-100" style="border-radius:10px;transform:translate(25px, 25px)"> </div>
-                    </div>
-                    <div class="carousel-item position-relative ">
-                      <div class="card shadow" style="border-radius:10px;">
-                        <div class="position-absolute start-0 top-0 translate-middle"> <img class="rounded-circle fit-cover" src="home/assets/img/testimonial/author3.png" height="65" width="65" alt="" /></div>
-                        <div class="card-body p-4">
-                          <p class="fw-medium mb-4">&quot;Before, I worked as an employee in a private company as a community manager, but office hours were not for me. So I decided to convert.&quot;</p>
-                          <h5 class="text-secondary">Sara Ktoun</h5>
-                          <p class="fw-medium fs--1 mb-0">Photographer</p>
-                        </div>
-                      </div>
-                      <div class="card shadow-sm position-absolute top-0 z-index--1 mb-3 w-100 h-100" style="border-radius:10px;transform:translate(25px, 25px)"> </div>
-                    </div>
-                    <div class="carousel-item position-relative ">
-                      <div class="card shadow" style="border-radius:10px;">
-                        <div class="position-absolute start-0 top-0 translate-middle"> <img class="rounded-circle fit-cover" src="home/assets/img/testimonial/author2.png" height="65" width="65" alt="" /></div>
-                        <div class="card-body p-4">
-                          <p class="fw-medium mb-4">&quot;As CEO, I have a whole team to manage, so to be on the same wavelength as my team, I opted for a personal development consultation and it helped me.&quot;</p>
-                          <h5 class="text-secondary">Saad Rahmouni</h5>
-                          <p class="fw-medium fs--1 mb-0">CEO of X Company</p>
-                        </div>
-                      </div>
-                      <div class="card shadow-sm position-absolute top-0 z-index--1 mb-3 w-100 h-100" style="border-radius:10px;transform:translate(25px, 25px)"> </div>
-                    </div>
-                  </div>
-                  <div class="carousel-navigation d-flex flex-column flex-between-center position-absolute end-0 top-lg-50 bottom-0 translate-middle-y z-index-1 me-3 me-lg-0" style="height:60px;width:20px;">
-                    <button class="carousel-control-prev position-static" type="button" data-bs-target="#testimonialIndicator" data-bs-slide="prev"><img src="home/assets/img/icons/up.svg" width="16" alt="icon" /></button>
-                    <button class="carousel-control-next position-static" type="button" data-bs-target="#testimonialIndicator" data-bs-slide="next"><img src="home/assets/img/icons/down.svg" width="16" alt="icon" /></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><!-- end of .container-->
-
-      </section>
-      <!-- <section> close ============================-->
-
+<head>
+    @include('user.css')
+    <title>IKIZEN - Contact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Contact Page Styles */
+        .contact-section {
+            padding: 7rem 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
         
-      <!-- <section> begin ============================-->
-      <section id="footer" class="pb-0 pb-lg-4">
+        .contact-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.15);
+        }
+        
+        .contact-info {
+            background: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%);
+            color: white;
+            padding: 3rem;
+            height: 100%;
+        }
+        
+        .contact-info .badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        .contact-info h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-info p {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-item {
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-right: 1rem;
+        }
+        
+        .contact-item h6 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .contact-item p, .contact-item a {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .social-links {
+            margin-top: 3rem;
+        }
+        
+        .social-links h6 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            margin-right: 0.75rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .contact-form {
+            padding: 3rem;
+            background-color: white;
+            height: 100%;
+        }
+        
+        .form-header h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-header p {
+            color: #718096;
+            margin-bottom: 2rem;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control {
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        
+        .input-group-text {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-right: none;
+            border-radius: 12px 0 0 12px !important;
+        }
+        
+        .form-control.border-start-0 {
+            border-left: none;
+            border-radius: 0 12px 12px 0 !important;
+        }
+        
+        .submit-button {
+            background: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%);
+            border: none;
+            padding: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+        }
+        
+        .submit-button .btn-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .submit-button:hover .btn-icon {
+            transform: translateX(5px);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .reveal {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .reveal-left {
+            animation-delay: 0.2s;
+        }
+        
+        .reveal-right {
+            animation-delay: 0.4s;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 991.98px) {
+            .contact-info {
+                border-radius: 16px 16px 0 0;
+            }
+            
+            .contact-form {
+                border-radius: 0 0 16px 16px;
+            }
+        }
+    </style>
+</head>
 
-        <div class="footer-bg-wrapper">
-          <div class="footer-bg-animation">
-            <div class="footer-bg-shape shape1"></div>
-            <div class="footer-bg-shape shape2"></div>
-            <div class="footer-bg-shape shape3"></div>
-            <div class="footer-bg-shape shape4"></div>
-          </div>
-        </div>
+<body>
+    <main class="main" id="top">
+        @include('user.menu')
 
-
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-5 col-md-7 col-12 mb-4 mb-md-7 mb-lg-0 order-0"> <img class="mb-4" src="home/assets/img/1-removebg-preview.png" width="150" alt="ikizen" />
-              <p class="fs--1 text-secondary mb-0 fw-medium">Book your consultation in minutes, get the SOLUTION for your problems.</p>
+        <section class="contact-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="contact-card">
+                            <div class="row g-0">
+                                <!-- Contact Info Side -->
+                                <div class="col-lg-5">
+                                    <div class="contact-info">
+                                        <div class="info-header mb-5 reveal">
+                                            <span class="badge rounded-pill px-3 py-2 mb-3 reveal">Contact Us</span>
+                                            <h2 class="mb-4 reveal reveal-left">Get in touch with our team</h2>
+                                            <p class="mb-5 reveal reveal-left">Have questions or need assistance? We're here to help. Reach out to us through any channel below.</p>
+                                        </div>
+                                        
+                                        <div class="contact-details">
+                                            <div class="contact-item d-flex align-items-center mb-4 reveal reveal-left">
+                                                <div class="icon-box">
+                                                    <i class="fas fa-phone-alt"></i>
+                                                </div>
+                                                <div class="info">
+                                                    <h6 class="mb-0">Phone Number</h6>
+                                                    <p class="mb-0">06 13 45 76 00</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="contact-item d-flex align-items-center mb-4 reveal reveal-left">
+                                                <div class="icon-box">
+                                                    <i class="fas fa-envelope"></i>
+                                                </div>
+                                                <div class="info">
+                                                    <h6 class="mb-0">Email Address</h6>
+                                                    <p><a href="mailto:ikizzeen@gmail.com">ikizzeen@gmail.com</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="social-links mt-5 reveal reveal-left">
+                                            <h6 class="mb-3">Follow Us</h6>
+                                            <div class="d-flex">
+                                                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                                                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Form Side -->
+                                <div class="col-lg-7">
+                                    <div class="contact-form">
+                                        <div class="form-header mb-4 reveal reveal-right">
+                                            <h3>Send us a message</h3>
+                                            <p>Fill out the form below and we'll get back to you shortly</p>
+                                        </div>
+                                        
+                                        <form action="https://api.web3forms.com/submit" method="POST" id="contactForm" class="needs-validation" novalidate>
+                                            <input type="hidden" name="access_key" value="c667aef2-b7a4-4067-bf4d-c23cf3cb3cf0">
+                                            
+                                            <div class="mb-4 reveal reveal-right">
+                                                <label for="name" class="form-label">Full Name</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                    <input type="text" class="form-control form-control-lg border-start-0" name="name" id="name" placeholder="Enter your name" required>
+                                                    <div class="invalid-feedback">Please enter your name</div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-4 reveal reveal-right">
+                                                <label for="email" class="form-label">Email Address</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                                    <input type="email" class="form-control form-control-lg border-start-0" name="email" id="email" placeholder="Enter your email" required>
+                                                    <div class="invalid-feedback">Please enter a valid email address</div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-4 reveal reveal-right">
+                                                <label for="message" class="form-label">Message</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-comment-dots"></i></span>
+                                                    <textarea class="form-control form-control-lg border-start-0" name="message" id="message" rows="4" placeholder="Write your message here..." required></textarea>
+                                                    <div class="invalid-feedback">Please enter your message</div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mt-4 reveal reveal-right">
+                                                <button type="submit" id="form-submit" class="btn btn-primary btn-lg w-100 submit-button">
+                                                    <span class="btn-text">Send Message</span>
+                                                    <span class="btn-icon"><i class="fas fa-paper-plane ms-2"></i></span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                        
+                                        <div id="message-container" class="mt-4"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-1 order-md-2">
-              <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Ikizen</h4>
-              <ul class="list-unstyled mb-0">
-                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="{{route('accueil')}}">About</a></li>
-                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="{{route('accueil')}}">Experts</a></li>
-              </ul>
-            </div>
-            <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-2 order-md-3">
-              <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Contact</h4>
-              <ul class="list-unstyled mb-0">
-                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="{{route('contact')}}">Help</a></li>
-                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="{{route('contact')}}">Contact</a></li>
-              </ul>
-            </div>
-            <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-3 order-md-4">
-              <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">More</h4>
-              <div class="icon-group mb-4"> 
-                <a class="text-decoration-none icon-item shadow-social" id="facebook" href="https://fr.linkedin.com/" target="_blank"><i class="fab fa-linkedin"> </i></a>
-                <a class="text-decoration-none icon-item shadow-social" id="instagram" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"> </i></a>
-            </div>
+        </section>
 
-            </div>
-          </div>
-        </div><!-- end of .container-->
-
-      </section>
-      <!-- <section> close ============================-->
-      <!-- ============================================-->
-
-
-      <div class="py-5 text-center">
-        <p class="mb-0 text-secondary fs--1 fw-medium">All rights reserved ikizen </p>
-      </div>
+        <!-- Rest of your sections (testimonials, footer, etc.) -->
+       
     </main>
-    {{-- @include('profile.partials.chatbot') --}}
 
-    <!-- ===============================================-->
-    <!--    End of Main Content-->
-    <!-- ===============================================-->
-    @include('user.script');
-    <script src="//code.tidio.co/ezckblutrreap5ryuccizocwkfafx453.js" async></script>
-
-    <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+    @include('user.script')
     <script>
-        Weglot.initialize({
-            api_key: 'wg_f046143884ddc4609603fcad0408ce432'
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form validation
+            (function() {
+                'use strict';
+                
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.querySelectorAll('.needs-validation');
+                
+                // Loop over them and prevent submission
+                Array.prototype.slice.call(forms)
+                    .forEach(function(form) {
+                        form.addEventListener('submit', function(event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+            })();
+            
+            // Animate elements when they come into view
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.reveal');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.style.animationPlayState = 'running';
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on page load
+            
+            // Form submission handling
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const submitButton = document.getElementById('form-submit');
+                    const originalText = submitButton.innerHTML;
+                    
+                    // Change button text and add loading state
+                    submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Sending...';
+                    submitButton.disabled = true;
+                    
+                    // Simulate form submission (replace with actual AJAX call)
+                    setTimeout(() => {
+                        // Reset button
+                        submitButton.innerHTML = originalText;
+                        submitButton.disabled = false;
+                        
+                        // Show success message
+                        const messageContainer = document.getElementById('message-container');
+                        messageContainer.innerHTML = `
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Success!</strong> Your message has been sent. We'll get back to you soon.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        `;
+                        
+                        // Reset form
+                        contactForm.reset();
+                        contactForm.classList.remove('was-validated');
+                    }, 2000);
+                });
+            }
         });
     </script>
-  </body>
-
+</body>
 </html>

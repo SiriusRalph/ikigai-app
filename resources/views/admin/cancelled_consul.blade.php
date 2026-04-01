@@ -19,9 +19,148 @@
   <link href="/dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="/dashboard/assets/css/argon-dashboard.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg,    #1854AF 0%,    #1854AF 100%);
+      --card-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.06), 0 2px 10px -1px rgba(0, 0, 0, 0.04);
+      --table-row-hover: rgba(94, 114, 228, 0.05);
+    }
+    
+    .bg-primary {
+      background: var(--primary-gradient) !important;
+      height: 280px;
+    }
+    
+    .sidenav {
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
+      border: none !important;
+    }
+    
+    .navbar-main {
+      backdrop-filter: blur(10px);
+      background-color:    #1854AF !important;
+    }
+    
+    .card {
+      border: none;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-header {
+      background: white;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 1.5rem;
+    }
+    
+    .table-responsive {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    table {
+      margin-bottom: 0 !important;
+    }
+    
+    thead {
+      background: rgba(0, 0, 0, 0.02);
+      border-bottom: 2px solid rgba(0, 0, 0, 0.03);
+    }
+    
+    th {
+      font-size: 0.75rem !important;
+      letter-spacing: 0.5px;
+      text-transform: uppercase !important;
+      color: #6c757d !important;
+      padding: 1rem 0.75rem !important;
+    }
+    
+    tbody tr {
+      transition: all 0.2s ease;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    }
+    
+    tbody tr:hover {
+      background: var(--table-row-hover) !important;
+      transform: translateX(2px);
+    }
+    
+    td {
+      padding: 1rem 0.75rem !important;
+      vertical-align: middle !important;
+    }
+    
+    .avatar {
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .badge-sm {
+      padding: 0.35em 0.65em;
+      font-size: 0.7em;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    
+    .bg-gradient-danger {
+      background: linear-gradient(135deg, #f5365c 0%, #f56036 100%) !important;
+    }
+    
+    .alert {
+      border: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      border-left: 4px solid;
+    }
+    
+    .section-title {
+      letter-spacing: 0.5px;
+      font-size: 0.7rem;
+      color: #6c757d;
+    }
+    
+    .nav-link.active {
+      background: rgba(94, 114, 228, 0.1) !important;
+      border-radius: 8px;
+    }
+    
+    .nav-link.active .icon {
+      background: var(--primary-gradient) !important;
+    }
+    
+    .nav-link.active .icon i {
+      color: white !important;
+      opacity: 1 !important;
+    }
+    
+    .cancellation-reason {
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .cancellation-reason:hover {
+      white-space: normal;
+      overflow: visible;
+      background: white;
+      position: absolute;
+      z-index: 10;
+      padding: 0.5rem;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      max-width: 300px;
+    }
+  </style>
 </head>
 
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
@@ -43,7 +182,7 @@
           </a>
         </li>
         <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Coaches section</h6>
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 section-title">Coaches section</h6>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="{{route('experts.indexProfiles')}}">
@@ -54,7 +193,7 @@
           </a>
         </li>
         <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Test questions section</h6>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 section-title">Test questions section</h6>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="{{route('questions.index')}}">
@@ -65,7 +204,7 @@
             </a>
           </li>
           <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Consultation section</h6>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 section-title">Consultation section</h6>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="{{route('admin.consultations')}}">
@@ -84,7 +223,7 @@
             </a>
           </li>
           <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account section</h6>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 section-title">Account section</h6>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="{{route('admin.users.index')}}">
@@ -106,7 +245,7 @@
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Dashboard</a></li>
             <li class="breadcrumb-item text-sm text-white active" aria-current="page">Admin</li>
           </ol>
-          <h6 class="font-weight-bolder text-white mb-0">Consultations</h6>
+          <h6 class="font-weight-bolder text-white mb-0">Cancelled Consultations</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -158,7 +297,7 @@
       <div class="row">
         <div class="col-12">
           <div class="card mb-4">
-            <div class="card-header pb-0">
+            <div class="card-header pb-0 d-flex justify-content-between align-items-center">
               <h6>Cancelled consultations</h6>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
@@ -167,7 +306,6 @@
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Expert</th>
-
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Client</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Time</th>
@@ -175,7 +313,6 @@
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Reason for cancellation</th>
-
                     </tr>
                   </thead>
                   <tbody>
@@ -224,12 +361,10 @@
                       </td>
 
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{ $consultation->motif_annulation }}</span>
+                        <span class="text-secondary text-xs font-weight-bold cancellation-reason" title="{{ $consultation->motif_annulation }}">{{ $consultation->motif_annulation }}</span>
                       </td>
-
                     </tr>
                     @endforeach
-
                   </tbody>
                 </table>
               </div>

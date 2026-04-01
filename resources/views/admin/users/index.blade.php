@@ -18,6 +18,144 @@
   <link href="/dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="/dashboard/assets/css/argon-dashboard.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg,    #1854AF 0%,    #1854AF 100%);
+      --card-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.06), 0 2px 10px -1px rgba(0, 0, 0, 0.04);
+      --user-card-hover: 0 8px 30px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .bg-primary {
+      background: var(--primary-gradient) !important;
+      height: 280px;
+    }
+    
+    .sidenav {
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
+      border: none !important;
+    }
+    
+    .navbar-main {
+      backdrop-filter: blur(10px);
+      background-color:    #1854AF !important;
+    }
+    
+    .card {
+      border: none;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-header {
+      background: white;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .list-group-item {
+      transition: all 0.3s ease;
+      border-radius: 10px !important;
+      margin-bottom: 1rem !important;
+      border: 1px solid rgba(0, 0, 0, 0.03) !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+    }
+    
+    .list-group-item:hover {
+      transform: translateX(5px);
+      box-shadow: var(--user-card-hover);
+      background: #f8f9fa !important;
+    }
+    
+    .btn-link {
+      transition: all 0.2s ease;
+      border-radius: 8px;
+      padding: 8px 12px !important;
+    }
+    
+    .btn-link:hover {
+      background: rgba(0, 0, 0, 0.03);
+      text-decoration: none !important;
+    }
+    
+    .btn-link.text-warning:hover {
+      background: rgba(255, 193, 7, 0.1);
+    }
+    
+    .bg-gradient-primary {
+      background: var(--primary-gradient) !important;
+      color: white !important;
+      box-shadow: 0 4px 10px rgba(94, 114, 228, 0.3);
+      border: none !important;
+    }
+    
+    .bg-gradient-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(94, 114, 228, 0.4);
+    }
+    
+    .alert {
+      border: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      border-left: 4px solid;
+    }
+    
+    .section-title {
+      letter-spacing: 0.5px;
+      font-size: 0.7rem;
+      color: #6c757d;
+    }
+    
+    .nav-link.active {
+      background: rgba(94, 114, 228, 0.1) !important;
+      border-radius: 8px;
+    }
+    
+    .nav-link.active .icon {
+      background: var(--primary-gradient) !important;
+    }
+    
+    .nav-link.active .icon i {
+      color: white !important;
+      opacity: 1 !important;
+    }
+    
+    .user-type-badge {
+      display: inline-block;
+      padding: 0.25em 0.6em;
+      font-size: 0.75em;
+      font-weight: 600;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      border-radius: 0.375rem;
+    }
+    
+    .user-type-admin {
+      background: rgba(94, 114, 228, 0.1);
+      color: #5e72e4;
+    }
+    
+    .user-type-client {
+      background: rgba(23, 201, 100, 0.1);
+      color: #17c964;
+    }
+    
+    .user-type-expert {
+      background: rgba(255, 193, 7, 0.1);
+      color: #ffc107;
+    }
+  </style>
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
@@ -42,7 +180,7 @@
           </a>
         </li>
         <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Coaches section</h6>
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 section-title">Coaches section</h6>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="{{route('experts.indexProfiles')}}">
@@ -53,7 +191,7 @@
           </a>
         </li>
         <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Test questions section</h6>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 section-title">Test questions section</h6>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="{{route('questions.index')}}">
@@ -64,7 +202,7 @@
             </a>
           </li>
           <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Consultation section</h6>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 section-title">Consultation section</h6>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="{{route('admin.consultations')}}">
@@ -83,7 +221,7 @@
             </a>
           </li>
           <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account section</h6>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 section-title">Account section</h6>
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="{{route('admin.users.index')}}">
@@ -160,7 +298,7 @@
             <div class="card">
                 <div class="card-header pb-0 px-3">
                     <h4 class="mb-0">List of users</h4>
-                    <div class=" text-end">
+                    <div class="text-end">
                         <a class="btn bg-gradient-primary mb-0" href="{{ route('admin.createUser') }}"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Create User Account</a>
                     </div>
                 </div>
@@ -168,11 +306,13 @@
                     <ul class="list-group">
 
                         @foreach($users as $user)
-                        <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                            <div class="d-flex flex-column">
-                                <h6 class="mb-3 text-sm">{{ $user->name }}</h6>
-                                <span class="mb-2 text-xs">Email: <span class="text-dark font-weight-bold ms-sm-2">{{ $user->email }}</span></span>
-                                <span class="mb-2 text-xs">Type: <span class="text-dark ms-sm-2 font-weight-bold">{{ $user->type }}</span></span>
+                        <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg align-items-center">
+                            <div class="d-flex flex-column flex-grow-1">
+                                <h6 class="mb-3 text-sm font-weight-bold text-dark">{{ $user->name }}</h6>
+                                <div class="d-flex flex-wrap gap-4">
+                                    <span class="text-xs">Email: <span class="text-dark font-weight-bold ms-sm-2">{{ $user->email }}</span></span>
+                                    <span class="text-xs">Type: <span class="user-type-badge user-type-{{ strtolower($user->type) }}">{{ $user->type }}</span></span>
+                                </div>
                             </div>
                             <div class="ms-auto text-end">
                                 <form action="{{ route('admin.destroyUser', $user->id) }}" method="POST">
@@ -180,11 +320,9 @@
                                     @method('DELETE')
                                     <button class="btn btn-link text-warning text-gradient px-3 mb-0" onclick="return confirm('Are you sure you want to delete this user?')" type="submit"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Delete</button>
                                 </form>
-
                             </div>
                         </li>
                         @endforeach
-
 
                     </ul>
                 </div>

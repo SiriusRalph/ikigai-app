@@ -162,7 +162,7 @@
     <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
     <script>
         Weglot.initialize({
-            api_key: 'wg_f046143884ddc4609603fcad0408ce432'
+            api_key: 'wg_795455906f46076b7d3ac2c832807b665'
         });
     </script>
 </body>

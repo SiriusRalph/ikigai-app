@@ -33,6 +33,7 @@ Route::post('/chatbot/response', [ChatbotController::class, 'getResponse'])->nam
 
 
 Route::get('/', [DashboardController::class, 'index'])->name('accueil');
+Route::get('/about', [DashboardController::class, 'about'])->name('about');
 Route::get('/contact', [DashboardController::class, 'contact'])->name('contact');
 
 
